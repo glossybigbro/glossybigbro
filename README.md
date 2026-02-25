@@ -1,3 +1,9 @@
+```text
+>_ SYSTEM: INITIALIZING AUTO-PROFILE SEQUENCE...
+>_ STATUS: GitHub Actions Pipeline in Active Testing 🔄
+>_ NOTICE: Live data fetching enabled. Expect frequent UI restructuring.
+```
+
 # Hey there! I'm **GlossyBigBro** 👋
 
 I'm a **Full Stack Developer** based in 📍 **Seoul**. I enjoy building _web applications_ and exploring new technologies.
