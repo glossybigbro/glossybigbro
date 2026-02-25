@@ -14,8 +14,11 @@ I'm a **Full Stack Developer** based in 📍 **Seoul**. I enjoy building _web ap
 - 👨‍💻 All of my projects are available at [my-website.com](https://my-website.com)
 - 📝 I regularly write articles on [my-blog.com](https://my-blog.com)
 
-<!-- glossy-activity-graph-1772017259260-0.7174075887011091-start -->
-<!-- glossy-activity-graph-1772017259260-0.7174075887011091-end -->
+
+<a href="https://github.com/glossybigbro">
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username=glossybigbro&theme=tokyo-night&area=true&hide_border=false&hide_title=true&grid=false&days=31&radius=0" alt="glossybigbro's GitHub Activity Graph" width="100%" />
+</a>
+
 
 <!-- glossy-productive-time-1772017263716-0.5189462670466881-start -->
 ☀️ Daytime Hustler
