@@ -27,7 +27,7 @@
         "text": "📝 I regularly write articles on [my-blog.com](https://my-blog.com)"
       }
     ],
-    "showHeading": true,
+    "showHeading": false,
     "showDescription": true,
     "showBullets": true,
     "headingSize": "h1"
@@ -63,105 +63,56 @@
       "Markdown",
       "JSON"
     ],
-    "sortBy": "usage",
-    "periodDays": 7
+    "sortBy": "usage"
   },
   "weeklyProjects": {
     "style": "progress",
     "count": 5,
-    "sortBy": "commits",
-    "periodDays": 7
+    "sortBy": "commits"
   },
   "blocks": [
     {
-      "id": "1772017254876-bio-header",
-      "type": "header",
-      "level": 1,
-      "content": "Hey there! I'm **GlossyBigBro** 👋",
-      "createdAt": 1772017254876,
-      "style": {
-        "marginTop": "12px",
-        "marginBottom": "12px"
-      }
-    },
-    {
-      "id": "1772017254876-bio-desc",
-      "type": "text",
-      "content": "I'm a **Full Stack Developer** based in 📍 **Seoul**. I enjoy building _web applications_ and exploring new technologies.",
-      "createdAt": 1772017254876
-    },
-    {
-      "id": "1772017254876-bio-bullet-0",
-      "type": "bullet",
-      "content": "🔭 I’m currently working on **Something Cool**",
-      "createdAt": 1772017254876
-    },
-    {
-      "id": "1772017254876-bio-bullet-1",
-      "type": "bullet",
-      "content": "🌱 I’m currently learning **React & Next.js**",
-      "createdAt": 1772017254876
-    },
-    {
-      "id": "1772017254876-bio-bullet-2",
-      "type": "bullet",
-      "content": "👯 I’m looking to collaborate on **Open Source Projects**",
-      "createdAt": 1772017254876
-    },
-    {
-      "id": "1772017254876-bio-bullet-3",
-      "type": "bullet",
-      "content": "👨‍💻 All of my projects are available at [my-website.com](https://my-website.com)",
-      "createdAt": 1772017254876
-    },
-    {
-      "id": "1772017254876-bio-bullet-4",
-      "type": "bullet",
-      "content": "📝 I regularly write articles on [my-blog.com](https://my-blog.com)",
-      "createdAt": 1772017254876
-    },
-    {
-      "id": "1772017259260-0.7174075887011091",
+      "id": "1772126145605-0.7036730501477392",
       "type": "widget",
       "widgetType": "activity-graph",
       "config": {
-        "activityGraphTheme": "tokyo-night",
+        "activityGraphTheme": "dracula",
         "activityGraphAreaFill": true,
-        "activityGraphHideBorder": false,
+        "activityGraphHideBorder": true,
         "activityGraphHideTitle": true,
-        "activityGraphGrid": false,
-        "activityGraphDays": 31,
-        "activityGraphRadius": 0,
+        "activityGraphGrid": true,
+        "activityGraphDays": 14,
+        "activityGraphRadius": 16,
         "activityGraphCustomTitle": ""
       },
-      "createdAt": 1772017259260
+      "createdAt": 1772126145605
     },
     {
-      "id": "1772017263716-0.5189462670466881",
+      "id": "1772126171547-0.5225937646178315",
       "type": "widget",
       "widgetType": "productive-time",
       "config": {
         "productiveTime": {
-          "style": "cyber",
+          "style": "terminal",
           "isAnalyzed": true,
           "stats": {
             "morning": 0,
-            "daytime": 67,
-            "evening": 17,
-            "night": 17,
+            "daytime": 15,
+            "evening": 38,
+            "night": 46,
             "commits": {
               "morning": 0,
-              "daytime": 4,
-              "evening": 1,
-              "night": 1
+              "daytime": 2,
+              "evening": 5,
+              "night": 6
             }
           }
         }
       },
-      "createdAt": 1772017263716
+      "createdAt": 1772126171547
     },
     {
-      "id": "1772017271587-0.8666048255530007",
+      "id": "1772126191372-0.5712363504656853",
       "type": "widget",
       "widgetType": "weekly-languages",
       "config": {
@@ -170,93 +121,367 @@
           "count": 5,
           "excludeLanguages": [
             "Markdown",
-            "JSON"
+            "JSON",
+            "YAML",
+            "Text",
+            "XML",
+            "HTML",
+            "Dockerfile",
+            "Shell",
+            "CSS"
           ],
-          "sortBy": "usage",
-          "periodDays": 7
+          "sortBy": "usage"
         },
         "useRealData": true,
         "realData": [
           {
             "name": "TypeScript",
-            "count": 2,
-            "percent": 68.99
+            "count": 3,
+            "percent": 70.39
           },
           {
             "name": "CSS",
             "count": 2,
-            "percent": 16.02
+            "percent": 15.65
           },
           {
             "name": "C++",
             "count": 1,
-            "percent": 5.03
+            "percent": 4.67
           },
           {
             "name": "CMake",
             "count": 1,
-            "percent": 4
+            "percent": 3.72
           },
           {
             "name": "Kotlin",
             "count": 3,
-            "percent": 2.91
+            "percent": 2.7
           },
           {
             "name": "Dart",
             "count": 1,
-            "percent": 2
+            "percent": 1.86
           },
           {
             "name": "Swift",
             "count": 1,
-            "percent": 0.37
+            "percent": 0.34
           },
           {
             "name": "C",
             "count": 1,
-            "percent": 0.3
+            "percent": 0.28
           },
           {
             "name": "HTML",
             "count": 2,
-            "percent": 0.25
+            "percent": 0.23
           },
           {
             "name": "JavaScript",
             "count": 2,
-            "percent": 0.11
+            "percent": 0.15
           },
           {
             "name": "Objective-C",
             "count": 1,
             "percent": 0.01
           }
-        ]
+        ],
+        "title": "💬 Weekly Languages"
       },
-      "createdAt": 1772017271587
+      "createdAt": 1772126191372
     },
     {
-      "id": "1772017279896-0.28522550080449005",
+      "id": "1772126205504-0.4391655489645383",
+      "type": "widget",
+      "widgetType": "weekly-languages",
+      "config": {
+        "weeklyLanguages": {
+          "style": "emoji",
+          "count": 10,
+          "excludeLanguages": [
+            "Markdown",
+            "JSON"
+          ],
+          "sortBy": "alphabetical",
+          "themeColor": "purple"
+        },
+        "useRealData": true,
+        "realData": [
+          {
+            "name": "TypeScript",
+            "count": 3,
+            "percent": 70.39
+          },
+          {
+            "name": "CSS",
+            "count": 2,
+            "percent": 15.65
+          },
+          {
+            "name": "C++",
+            "count": 1,
+            "percent": 4.67
+          },
+          {
+            "name": "CMake",
+            "count": 1,
+            "percent": 3.72
+          },
+          {
+            "name": "Kotlin",
+            "count": 3,
+            "percent": 2.7
+          },
+          {
+            "name": "Dart",
+            "count": 1,
+            "percent": 1.86
+          },
+          {
+            "name": "Swift",
+            "count": 1,
+            "percent": 0.34
+          },
+          {
+            "name": "C",
+            "count": 1,
+            "percent": 0.28
+          },
+          {
+            "name": "HTML",
+            "count": 2,
+            "percent": 0.23
+          },
+          {
+            "name": "JavaScript",
+            "count": 2,
+            "percent": 0.15
+          },
+          {
+            "name": "Objective-C",
+            "count": 1,
+            "percent": 0.01
+          }
+        ],
+        "title": "💬 Weekly Languages"
+      },
+      "createdAt": 1772126205504
+    },
+    {
+      "id": "1772126222293-0.5654176784408306",
+      "type": "widget",
+      "widgetType": "weekly-languages",
+      "config": {
+        "weeklyLanguages": {
+          "style": "compact",
+          "count": 5,
+          "excludeLanguages": [
+            "Markdown",
+            "JSON"
+          ],
+          "sortBy": "recent",
+          "themeColor": "green"
+        },
+        "useRealData": true,
+        "realData": [
+          {
+            "name": "TypeScript",
+            "count": 3,
+            "percent": 70.39
+          },
+          {
+            "name": "CSS",
+            "count": 2,
+            "percent": 15.65
+          },
+          {
+            "name": "C++",
+            "count": 1,
+            "percent": 4.67
+          },
+          {
+            "name": "CMake",
+            "count": 1,
+            "percent": 3.72
+          },
+          {
+            "name": "Kotlin",
+            "count": 3,
+            "percent": 2.7
+          },
+          {
+            "name": "Dart",
+            "count": 1,
+            "percent": 1.86
+          },
+          {
+            "name": "Swift",
+            "count": 1,
+            "percent": 0.34
+          },
+          {
+            "name": "C",
+            "count": 1,
+            "percent": 0.28
+          },
+          {
+            "name": "HTML",
+            "count": 2,
+            "percent": 0.23
+          },
+          {
+            "name": "JavaScript",
+            "count": 2,
+            "percent": 0.15
+          },
+          {
+            "name": "Objective-C",
+            "count": 1,
+            "percent": 0.01
+          }
+        ],
+        "title": "💬 Weekly Languages"
+      },
+      "createdAt": 1772126222293
+    },
+    {
+      "id": "1772126235942-0.02494337419972692",
       "type": "widget",
       "widgetType": "weekly-projects",
       "config": {
         "weeklyProjects": {
           "style": "progress",
-          "count": 5,
-          "sortBy": "commits",
-          "periodDays": 7
+          "count": 10,
+          "sortBy": "commits"
         },
         "useRealData": true,
-        "realData": []
+        "realData": [
+          {
+            "name": "glossybigbro",
+            "commits": 1,
+            "percent": 100
+          }
+        ],
+        "title": "🐱💻 Weekly Projects"
       },
-      "createdAt": 1772017279896
+      "createdAt": 1772126235942
     },
     {
-      "id": "block-1772017259260-auto-empty",
+      "id": "1772126247216-0.13778136295899523",
+      "type": "widget",
+      "widgetType": "weekly-projects",
+      "config": {
+        "weeklyProjects": {
+          "style": "compact",
+          "count": 5,
+          "sortBy": "alphabetical"
+        },
+        "useRealData": true,
+        "realData": [
+          {
+            "name": "glossybigbro",
+            "commits": 1,
+            "percent": 100
+          }
+        ],
+        "title": "🐱💻 Weekly Projects"
+      },
+      "createdAt": 1772126247216
+    },
+    {
+      "id": "1772126257558-0.4490653546915987",
+      "type": "widget",
+      "widgetType": "weekly-projects",
+      "config": {
+        "weeklyProjects": {
+          "style": "emoji",
+          "count": 5,
+          "sortBy": "recent",
+          "themeColor": "red"
+        },
+        "useRealData": true,
+        "realData": [
+          {
+            "name": "glossybigbro",
+            "commits": 1,
+            "percent": 100
+          }
+        ],
+        "title": "🐱💻 Weekly Projects"
+      },
+      "createdAt": 1772126257558
+    },
+    {
+      "id": "1772126289301-0.3408068907263003",
+      "type": "widget",
+      "widgetType": "waka-10k-hours",
+      "config": {
+        "useRealData": true,
+        "wakaRealData": {
+          "totalSeconds": 16598.226,
+          "percent": 0.04610618333333333
+        },
+        "theme": "classic",
+        "goalTitle": "Master of TypeScript"
+      },
+      "createdAt": 1772126289301
+    },
+    {
+      "id": "1772126295766-0.9482403292096852",
+      "type": "widget",
+      "widgetType": "waka-10k-hours",
+      "config": {
+        "useRealData": true,
+        "wakaRealData": {
+          "totalSeconds": 16598.226,
+          "percent": 0.04610618333333333
+        },
+        "theme": "rpg",
+        "displayMode": "remaining",
+        "goalTitle": "Master of TypeScript"
+      },
+      "createdAt": 1772126295766
+    },
+    {
+      "id": "1772126301341-0.11673391667345445",
+      "type": "widget",
+      "widgetType": "waka-10k-hours",
+      "config": {
+        "useRealData": true,
+        "wakaRealData": {
+          "totalSeconds": 16598.226,
+          "percent": 0.04610618333333333
+        },
+        "theme": "terminal",
+        "goalTitle": "Master of TypeScript"
+      },
+      "createdAt": 1772126301341
+    },
+    {
+      "id": "1772126306387-0.4922088520581265",
+      "type": "widget",
+      "widgetType": "waka-10k-hours",
+      "config": {
+        "useRealData": true,
+        "wakaRealData": {
+          "totalSeconds": 16598.226,
+          "percent": 0.04610618333333333
+        },
+        "theme": "minimal",
+        "displayMode": "remaining",
+        "goalTitle": "Master of TypeScript"
+      },
+      "createdAt": 1772126306387
+    },
+    {
+      "id": "block-1772126306387-auto-empty",
       "type": "text",
       "content": "",
-      "createdAt": 1772017259260
+      "createdAt": 1772126306387
     }
   ]
 }

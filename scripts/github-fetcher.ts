@@ -70,15 +70,20 @@ export async function fetchProductiveTime(username: string) {
     }
 }
 
-export async function fetchWeeklyLanguages(username: string) {
+export async function fetchUserRepositories(username: string) {
     try {
         const query = `
             query($login: String!) {
                 user(login: $login) {
                     repositories(first: 100, isFork: false, orderBy: {field: PUSHED_AT, direction: DESC}) {
                         nodes {
+                            name
+                            pushedAt
                             languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
                                 edges { size node { name } }
+                            }
+                            defaultBranchRef {
+                                target { ... on Commit { history(author: {id: $login}) { totalCount } } }
                             }
                         }
                     }
@@ -86,12 +91,28 @@ export async function fetchWeeklyLanguages(username: string) {
             }
         `
         const { data } = await fetchGraphql(query, { login: username })
-        
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return data?.user?.repositories?.nodes || []
+    } catch (e) {
+        console.warn('Failed to fetch repositories:', e)
+        return []
+    }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function calculateWeeklyLanguages(repos: any[]) {
+    try {
         const langMap = new Map()
         let totalBytes = 0
         
+        const sinceDate = new Date()
+        sinceDate.setDate(sinceDate.getDate() - 7)
+        
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        for (const repo of data.user.repositories.nodes) {
+        for (const repo of repos) {
+            const pushedAt = new Date(repo.pushedAt)
+            if (pushedAt < sinceDate) continue
+            
             if (!repo.languages?.edges) continue
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             for (const { size, node } of repo.languages.edges) {
@@ -111,34 +132,25 @@ export async function fetchWeeklyLanguages(username: string) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return results.sort((a: any, b: any) => b.percent - a.percent)
     } catch (e) {
-        console.warn('Failed to fetch languages:', e)
+        console.warn('Failed to calculate languages:', e)
         return []
     }
 }
 
-export async function fetchWeeklyProjects(username: string) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function calculateWeeklyProjects(repos: any[]) {
     try {
-        const query = `
-            query($login: String!) {
-                user(login: $login) {
-                    repositories(first: 100, isFork: false, orderBy: {field: PUSHED_AT, direction: DESC}) {
-                        nodes {
-                            name
-                            defaultBranchRef {
-                                target { ... on Commit { history(author: {id: $login}) { totalCount } } }
-                            }
-                        }
-                    }
-                }
-            }
-        `
-        const { data } = await fetchGraphql(query, { login: username })
-        
         let results: Array<{name: string, commits: number, percent?: number}> = []
         let totalCommits = 0
         
+        const sinceDate = new Date()
+        sinceDate.setDate(sinceDate.getDate() - 7)
+        
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        for (const repo of data.user.repositories.nodes) {
+        for (const repo of repos) {
+            const pushedAt = new Date(repo.pushedAt)
+            if (pushedAt < sinceDate) continue
+            
             const commits = repo.defaultBranchRef?.target?.history?.totalCount || 0
             if (commits > 0) {
                 results.push({ name: repo.name, commits })
@@ -153,7 +165,7 @@ export async function fetchWeeklyProjects(username: string) {
         
         return results.sort((a,b) => b.commits - a.commits)
     } catch (e) {
-        console.warn('Failed to fetch projects:', e)
+        console.warn('Failed to calculate projects:', e)
         return []
     }
 }

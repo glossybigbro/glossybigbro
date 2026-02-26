@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { fetchProductiveTime, fetchWeeklyLanguages, fetchWeeklyProjects } from './github-fetcher'
+import { fetchProductiveTime, fetchUserRepositories, calculateWeeklyLanguages, calculateWeeklyProjects } from './github-fetcher'
+import { fetchWakatimeStats } from './wakatime-fetcher'
 
 const README_PATH = path.join(process.cwd(), 'README.md')
 const CONFIG_PATH = path.join(process.cwd(), 'glossy-config.json')
@@ -20,6 +21,25 @@ const createSlider = (percentage: number, length: number = 25, lineChar: string 
 }
 
 const generateProgressBar = createBar;
+
+const THEME_COLORS = [
+    { id: 'blue', emoji: { square: '🟦', circle: '🔵' } },
+    { id: 'green', emoji: { square: '🟩', circle: '🟢' } },
+    { id: 'purple', emoji: { square: '🟪', circle: '🟣' } },
+    { id: 'orange', emoji: { square: '🟧', circle: '🟠' } },
+    { id: 'red', emoji: { square: '🟥', circle: '🔴' } }
+]
+
+const generateEmojiBar = (percent: number, filledEmoji: string = '🟦', size: number = 10) => {
+    const safePercentage = Math.max(0, Math.min(100, percent))
+    const filled = Math.round((size * safePercentage) / 100)
+    const empty = size - filled
+    return filledEmoji.repeat(filled) + '⬜'.repeat(empty)
+}
+
+const generateCompactBadge = (colorEmoji: string = '🔵') => {
+    return colorEmoji
+}
 
 const ProductiveTimeTitles = {
     morning: '🌞 Morning Bird',
@@ -43,54 +63,175 @@ const getDynamicTitle = (style: string, stats: any): string => {
     return style === 'terminal' ? `>_ ${title}` : title
 }
 
+const generateCyberDeckAscii = (stats: any) => {
+    const { morning, daytime, evening, night, commits } = stats
+    const row = (icon: string, label: string, count: number, percentage: number) => {
+        const bar = createBar(percentage, 25, '█', '░')
+        return `${icon} ${label.padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits    ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+    }
+    return '```text\n' +
+        row('🌞', 'Morning', commits.morning, morning) + '\n' +
+        row('🌆', 'Daytime', commits.daytime, daytime) + '\n' +
+        row('🌃', 'Evening', commits.evening, evening) + '\n' +
+        row('🌙', 'Night', commits.night, night) + '\n' +
+        '```\n'
+}
+const generateModernSquareAscii = (stats: any) => {
+    const { morning, daytime, evening, night, commits } = stats
+    const row = (icon: string, label: string, count: number, percentage: number) => {
+        const bar = createBar(percentage, 25, '■', '□')
+        return `${icon} ${label.toUpperCase().padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+    }
+    return '```text\n' +
+        row('🏙️', 'Morning', commits.morning, morning) + '\n' +
+        row('🏢', 'Daytime', commits.daytime, daytime) + '\n' +
+        row('🌉', 'Evening', commits.evening, evening) + '\n' +
+        row('🌃', 'Night', commits.night, night) + '\n' +
+        '```\n'
+}
+const generateMinimalDotAscii = (stats: any) => {
+    const { morning, daytime, evening, night, commits } = stats
+    const row = (icon: string, label: string, count: number, percentage: number) => {
+        const bar = createBar(percentage, 25, '●', '○')
+        return `${icon} ${label.padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+    }
+    return '```text\n' +
+        row('🕕', 'Morning', commits.morning, morning) + '\n' +
+        row('🕛', 'Daytime', commits.daytime, daytime) + '\n' +
+        row('🕡', 'Evening', commits.evening, evening) + '\n' +
+        row('🕛', 'Night', commits.night, night) + '\n' +
+        '```\n'
+}
+const generateTerminalAscii = (stats: any) => {
+    const { morning, daytime, evening, night, commits } = stats
+    const row = (label: string, count: number, percentage: number) => {
+        const bar = createBar(percentage, 25, '⣿', '⣀')
+        return `> ${label.padEnd(15, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+    }
+    return '```text\n' +
+        row('Morning', commits.morning, morning) + '\n' +
+        row('Daytime', commits.daytime, daytime) + '\n' +
+        row('Evening', commits.evening, evening) + '\n' +
+        row('Night', commits.night, night) + '\n' +
+        '```\n'
+}
+const generateSliderAscii = (stats: any) => {
+    const { morning, daytime, evening, night, commits } = stats
+    const row = (icon: string, label: string, count: number, percentage: number) => {
+        const bar = createSlider(percentage, 25, '─', '●')
+        return `${icon} ${label.padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+    }
+    return '```text\n' +
+        row('🕐', 'Morning', commits.morning, morning) + '\n' +
+        row('☀️', 'Daytime', commits.daytime, daytime) + '\n' +
+        row('🌕', 'Evening', commits.evening, evening) + '\n' +
+        row('💤', 'Night', commits.night, night) + '\n' +
+        '```\n'
+}
+
+function LIMIT_LENGTH(len: number) { return len > 0 ? len : 0 }
+const generateWaka10kHoursAscii = (wakaData: any, bConf: any, config: any) => {
+    const theme = bConf.theme || 'classic'
+    const targetLanguage = bConf.targetLanguage || 'TypeScript'
+    const goalTitle = bConf.goalTitle || `Master of ${targetLanguage}`
+    const displayMode = bConf.displayMode || 'accumulated'
+
+    const targetLangData = wakaData?.languages?.find((l: any) => l.name === targetLanguage)
+    
+    let stateMessage = ''
+    if (wakaData?.isCalculating) {
+        stateMessage = 'WakaTime is currently calculating your all-time stats for the first time. Please check back in a few minutes.'
+    } else if (wakaData?.success === false) {
+        stateMessage = 'Failed to fetch WakaTime stats.'
+    }
+
+    const totalSeconds = (!stateMessage && targetLangData) ? targetLangData.total_seconds || 0 : 0
+    const totalHours = Number((totalSeconds / 3600).toFixed(1))
+    
+    const goalHours = 10000
+    let pctNumber = (totalHours / goalHours) * 100
+    if (pctNumber > 100) pctNumber = 100
+    const percentage = pctNumber.toFixed(2)
+    const remainingHours = Number(Math.max(0, goalHours - totalHours).toFixed(1))
+    const level = Math.floor(totalHours / 100) + 1
+
+    let markdown = '```text\n'
+    markdown += `${goalTitle}\n\n`
+
+    if (stateMessage) {
+        if (theme === 'classic') {
+            markdown += `${targetLanguage} Proficiency\n`
+            markdown += `[ SYSTEM STATUS ]\n`
+            markdown += `> ${stateMessage}\n`
+        } else if (theme === 'rpg') {
+            markdown += `> ⚔️  [CLASS: ${targetLanguage} Artisan]\n`
+            markdown += `> ⏳ SYSTEM ALERTS:\n`
+            markdown += `>    ${stateMessage}\n`
+        } else if (theme === 'terminal') {
+            markdown += `guest@github:~$ wakatime --lang "${targetLanguage}" \n`
+            markdown += `> WARN: ${stateMessage}\n`
+        } else if (theme === 'minimal') {
+            markdown += `LANGUAGE     LOGGED TIME         PROGRESS\n`
+            markdown += `${targetLanguage.padEnd(12, ' ')} [ ${stateMessage} ]\n`
+        }
+    } else if (theme === 'classic') {
+        const chartBlocks = Math.floor(pctNumber / 5)
+        const filled = '█'.repeat(chartBlocks)
+        const empty = '░'.repeat(20 - chartBlocks)
+        if (displayMode === 'accumulated') {
+            markdown += `Total: ${totalHours.toLocaleString()} Hours\n`
+        } else {
+            markdown += `${remainingHours.toLocaleString()} Hours to mastery\n`
+        }
+        markdown += `[${filled}${empty}] ${percentage}%\n`
+    } else if (theme === 'rpg') {
+        const chartBlocks = Math.floor(pctNumber / 5)
+        const filled = '▓'.repeat(chartBlocks)
+        const empty = '┈'.repeat(LIMIT_LENGTH(20 - chartBlocks))
+        markdown += `> ⚔️  [CLASS: ${targetLanguage} Artisan]\n`
+        if (displayMode === 'accumulated') {
+            markdown += `> 📊 EXP: ${totalHours.toLocaleString()} / 10,000 (Lv. ${level})\n`
+        } else {
+            markdown += `> 🎯 REMAINING: ${remainingHours.toLocaleString()} Hours to mastery\n`
+        }
+        markdown += `> 📈 [${filled}${empty}]\n`
+    } else if (theme === 'terminal') {
+        const filledTotal = Math.floor(pctNumber / 4)
+        const fillCount = LIMIT_LENGTH(filledTotal > 0 ? filledTotal - 1 : 0)
+        const filled = '='.repeat(fillCount) + (filledTotal > 0 ? '>' : '')
+        const empty = ' '.repeat(LIMIT_LENGTH(25 - filledTotal))
+        markdown += `guest@github:~$ wakatime --lang "${targetLanguage}" \n`
+        markdown += `[${filled}${empty}] ${percentage}%\n`
+        markdown += `> ${totalHours.toLocaleString()} hours logged.\n`
+        markdown += `> ${displayMode === 'accumulated' ? 'Ongoing progress...' : `${remainingHours.toLocaleString()} hours remaining.`}\n`
+    } else if (theme === 'minimal') {
+        const chartBlocks = Math.floor(pctNumber / 10)
+        const filled = '█'.repeat(chartBlocks)
+        const empty = '░'.repeat(10 - chartBlocks)
+        const namePad = targetLanguage.padEnd(12, ' ')
+        const hoursPad = (displayMode === 'accumulated' ? `${totalHours.toLocaleString()} hrs` : `${remainingHours.toLocaleString()} hrs`).padStart(14, ' ')
+        const barPad = `${filled}${empty} (${percentage}%)`.padStart(18, ' ')
+        const headerTime = displayMode === 'accumulated' ? 'LOGGED TIME   ' : 'REMAINING TIME'
+        markdown += `LANGUAGE     ${headerTime}      PROGRESS\n`
+        markdown += `${namePad} ${hoursPad}   ${barPad}\n`
+    }
+    markdown += '```\n'
+    return markdown
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const generateProductiveTimeAscii = (style: string, stats: any) => {
-    const { morning, daytime, evening, night, commits } = stats
+    const { commits } = stats
     const total = commits.morning + commits.daytime + commits.evening + commits.night
     if (total === 0) return '```text\n        [zzz]\n       ( -_-)\n      /|    |\\\\\n     / |    | \\\\\n    ￣￣￣￣￣￣￣\n  Currently taking a coffee break ☕\n  (No public activity found... yet!)\n```\n'
 
-    const row = (icon: string, label: string, count: number, percentage: number, barStyle: string) => {
-        let bar = ''
-        if (barStyle === 'cyber') bar = createBar(percentage, 25, '█', '░')
-        else if (barStyle === 'modern') bar = createBar(percentage, 25, '■', '□')
-        else if (barStyle === 'minimal') bar = createBar(percentage, 25, '●', '○')
-        else if (barStyle === 'terminal') bar = createBar(percentage, 25, '⣿', '⣀')
-        else if (barStyle === 'slider') bar = createSlider(percentage, 25, '─', '●')
-        
-        const safeCount = (count || 0).toString().padStart(6, ' ')
-        const safePercent = (percentage || 0).toFixed(2).padStart(5, '0')
-        const iconPad = icon ? `${icon} ` : (barStyle === 'terminal' ? '> ' : '')
-        return `${iconPad}${label.padEnd(14, ' ')} ${safeCount} commits    ${bar}    ${safePercent} %`
-    }
-
-    let ascii = '```text\n'
-    if (style === 'modern') {
-        ascii += row('🏙️', 'Morning', commits.morning, morning, style) + '\n' +
-        row('🏢', 'Daytime', commits.daytime, daytime, style) + '\n' +
-        row('🌉', 'Evening', commits.evening, evening, style) + '\n' +
-        row('🌃', 'Night', commits.night, night, style) + '\n'
-    } else if (style === 'minimal') {
-        ascii += row('🕕', 'Morning', commits.morning, morning, style) + '\n' +
-        row('🕛', 'Daytime', commits.daytime, daytime, style) + '\n' +
-        row('🕡', 'Evening', commits.evening, evening, style) + '\n' +
-        row('🕛', 'Night', commits.night, night, style) + '\n'
-    } else if (style === 'terminal') {
-        ascii += row('', 'Morning', commits.morning, morning, style) + '\n' +
-        row('', 'Daytime', commits.daytime, daytime, style) + '\n' +
-        row('', 'Evening', commits.evening, evening, style) + '\n' +
-        row('', 'Night', commits.night, night, style) + '\n'
-    } else if (style === 'slider') {
-        ascii += row('🕐', 'Morning', commits.morning, morning, style) + '\n' +
-        row('☀️', 'Daytime', commits.daytime, daytime, style) + '\n' +
-        row('🌕', 'Evening', commits.evening, evening, style) + '\n' +
-        row('💤', 'Night', commits.night, night, style) + '\n'
-    } else {
-        ascii += row('🌞', 'Morning', commits.morning, morning, 'cyber') + '\n' +
-        row('🌆', 'Daytime', commits.daytime, daytime, 'cyber') + '\n' +
-        row('🌃', 'Evening', commits.evening, evening, 'cyber') + '\n' +
-        row('🌙', 'Night', commits.night, night, 'cyber') + '\n'
-    }
-    ascii += '```\n'
+    let ascii = ''
+    if (style === 'modern') ascii = generateModernSquareAscii(stats)
+    else if (style === 'minimal') ascii = generateMinimalDotAscii(stats)
+    else if (style === 'terminal') ascii = generateTerminalAscii(stats)
+    else if (style === 'slider') ascii = generateSliderAscii(stats)
+    else ascii = generateCyberDeckAscii(stats)
+    
     return getDynamicTitle(style, stats) + '\n' + ascii
 }
 
@@ -103,10 +244,13 @@ async function updateReadme() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let config: any;
         try {
-            config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'))
-        } catch (e) {
-            console.error('❌ Failed to parse config JSON. Stopping execution.')
-            process.exit(0)
+            const fileContent = fs.readFileSync(CONFIG_PATH, 'utf-8')
+            const cleanContent = fileContent.replace(/^\s*\/\/.*$/gm, '')
+            config = JSON.parse(cleanContent)
+        } catch (e: any) {
+            console.error('❌ Failed to read or parse config JSON. Please make sure glossy-config.json exists in the root directory.')
+            console.error('Error details:', e.message)
+            process.exit(1)
         }
         
         let newReadme = readmeContent
@@ -120,18 +264,28 @@ async function updateReadme() {
         let langData: any = null;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let projData: any = null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let wakaData: any = null;
         
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (dynamicBlocks.some((b: any) => b.widgetType === 'productive-time')) {
             timeData = await fetchProductiveTime(config.username)
         }
+        const needsRepos = dynamicBlocks.some((b: any) => ['weekly-languages', 'weekly-projects'].includes(b.widgetType))
+        let rawRepos: any = []
+        if (needsRepos) {
+            rawRepos = await fetchUserRepositories(config.username)
+        }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (dynamicBlocks.some((b: any) => b.widgetType === 'weekly-languages')) {
-            langData = await fetchWeeklyLanguages(config.username)
+            langData = calculateWeeklyLanguages(rawRepos)
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (dynamicBlocks.some((b: any) => b.widgetType === 'weekly-projects')) {
-            projData = await fetchWeeklyProjects(config.username)
+            projData = calculateWeeklyProjects(rawRepos)
+        }
+        if (dynamicBlocks.some((b: any) => b.widgetType === 'waka-10k-hours')) {
+            wakaData = await fetchWakatimeStats()
         }
 
         for (const block of dynamicBlocks) {
@@ -155,7 +309,7 @@ async function updateReadme() {
                         
                     case 'weekly-languages':
                         const lConf = bConf.weeklyLanguages || config.weeklyLanguages || {}
-                        const title = bConf.title || '💬 Weekly Languages'
+                        const title = bConf.title || `💬 Weekly Languages`
                         const lLimit = lConf.count || config.activityStats?.itemCount || 5
                         const excludes = lConf.excludeLanguages || []
                         
@@ -165,19 +319,28 @@ async function updateReadme() {
                         
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         const filteredLang = sortedLang.filter((l: any) => !excludes.includes(l.name)).slice(0, lLimit)
+                        const visualizationStyle = lConf.style || 'progress'
+                        const themeColor = lConf.themeColor || 'blue'
+                        const emojis = THEME_COLORS.find(c => c.id === themeColor)?.emoji || THEME_COLORS[0].emoji
                         
                         markdownToInject = '\n```text\n' + title + '\n\n'
                         if (filteredLang.length === 0) {
-                            markdownToInject += '>_ Productive Time\n\n' +
-                                '   ╭────────────────────────────╮\n' +
+                            markdownToInject += '   ╭────────────────────────────╮\n' +
                                 '   │   NO ACTIVITY DETECTED     │\n' +
                                 '   │   Waiting for daily code.  │\n' +
                                 '   ╰────────────────────────────╯\n'
                         } else {
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             filteredLang.forEach((lang: any) => {
-                                const bar = generateProgressBar(lang.percent, 25)
-                                markdownToInject += `${lang.name.padEnd(15, ' ')} ${(lang.count + ' Repos').padEnd(15, ' ')} ${bar} ${lang.percent.toString().padStart(7, ' ')} %\n`
+                                let bar = ''
+                                if (visualizationStyle === 'progress') bar = generateProgressBar(lang.percent, 25)
+                                else if (visualizationStyle === 'emoji') bar = generateEmojiBar(lang.percent, emojis.square, 10)
+                                else if (visualizationStyle === 'compact') bar = generateCompactBadge(emojis.circle)
+                                
+                                const namePad = lang.name.padEnd(15, ' ')
+                                const statPad = `${lang.count} Repos`.padEnd(15, ' ')
+                                const percentPad = `${lang.percent} %`.padStart(7, ' ')
+                                markdownToInject += `${namePad} ${statPad} ${bar} ${percentPad}\n`
                             })
                         }
                         markdownToInject += '```\n'
@@ -185,7 +348,7 @@ async function updateReadme() {
                         
                     case 'weekly-projects':
                         const pConf = bConf.weeklyProjects || config.weeklyProjects || {}
-                        const pTitle = bConf.title || '🐱💻 Weekly Projects'
+                        const pTitle = bConf.title || `🐱💻 Weekly Projects`
                         const pLimit = pConf.count || config.activityStats?.itemCount || 5
                         
                         const sortedProj = [...(projData || [])]
@@ -195,6 +358,9 @@ async function updateReadme() {
                         else if (pConf.sortBy === 'commits') sortedProj.sort((a: any, b: any) => b.commits - a.commits)
                         
                         const finalProj = sortedProj.slice(0, pLimit)
+                        const pVisualizationStyle = pConf.style || 'progress'
+                        const pThemeColor = pConf.themeColor || 'green'
+                        const pEmojis = THEME_COLORS.find(c => c.id === pThemeColor)?.emoji || THEME_COLORS[1].emoji
                         
                         markdownToInject = '\n```text\n' + pTitle + '\n\n'
                         if (finalProj.length === 0) {
@@ -208,11 +374,21 @@ async function updateReadme() {
                         } else {
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             finalProj.forEach((proj: any) => {
-                                const bar = generateProgressBar(proj.percent, 25)
-                                markdownToInject += `${proj.name.padEnd(20, ' ')} ${(proj.commits + ' commits').padEnd(15, ' ')} ${bar} ${proj.percent.toString().padStart(7, ' ')} %\n`
+                                let bar = ''
+                                if (pVisualizationStyle === 'progress') bar = generateProgressBar(proj.percent, 25)
+                                else if (pVisualizationStyle === 'emoji') bar = generateEmojiBar(proj.percent, pEmojis.square, 10)
+                                else if (pVisualizationStyle === 'compact') bar = generateCompactBadge(pEmojis.circle)
+                                
+                                const namePad = proj.name.padEnd(20, ' ')
+                                const statPad = `${proj.commits} commits`.padEnd(15, ' ')
+                                const percentPad = `${proj.percent} %`.padStart(7, ' ')
+                                markdownToInject += `${namePad} ${statPad} ${bar} ${percentPad}\n`
                             })
                         }
                         markdownToInject += '```\n'
+                        break
+                    case 'waka-10k-hours':
+                        markdownToInject = '\n' + generateWaka10kHoursAscii(wakaData, bConf, config)
                         break
                 }
 
