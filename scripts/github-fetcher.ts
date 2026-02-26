@@ -1,13 +1,13 @@
+import fs from 'fs'
+
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || ''
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function fetchGithub(url: string, options: any = {}) {
+async function fetchGithub(url: string) {
     const res = await fetch(url, {
-        ...options,
         headers: {
-            'Authorization': `Bearer ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json',
-            ...(options.headers || {})
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json'
         }
     })
     if (!res.ok) throw new Error(`GitHub API failed: ${res.status}`)
@@ -72,8 +72,18 @@ export async function fetchProductiveTime(username: string) {
 
 export async function fetchUserRepositories(username: string) {
     try {
+        // 1. Fetch User Node ID to filter commit history
+        const userQuery = `query($login: String!) { user(login: $login) { id } }`
+        const userRes = await fetchGraphql(userQuery, { login: username })
+        const userId = userRes.data?.user?.id
+        if (!userId) return []
+
+        // 2. Fetch Repositories with ID & Filter commits by last 7 days ($since)
+        const sinceDate = new Date()
+        sinceDate.setDate(sinceDate.getDate() - 7)
+        const sinceIso = sinceDate.toISOString()
         const query = `
-            query($login: String!) {
+            query($login: String!, $userId: ID!, $since: GitTimestamp!) {
                 user(login: $login) {
                     repositories(first: 100, isFork: false, orderBy: {field: PUSHED_AT, direction: DESC}) {
                         nodes {
@@ -83,14 +93,14 @@ export async function fetchUserRepositories(username: string) {
                                 edges { size node { name } }
                             }
                             defaultBranchRef {
-                                target { ... on Commit { history(author: {id: $login}) { totalCount } } }
+                                target { ... on Commit { history(author: {id: $userId}, since: $since) { totalCount } } }
                             }
                         }
                     }
                 }
             }
         `
-        const { data } = await fetchGraphql(query, { login: username })
+        const { data } = await fetchGraphql(query, { login: username, userId, since: sinceIso })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return data?.user?.repositories?.nodes || []
     } catch (e) {
@@ -163,7 +173,7 @@ export function calculateWeeklyProjects(repos: any[]) {
             percent: totalCommits > 0 ? Math.round((r.commits / totalCommits) * 100 * 100) / 100 : 0
         }))
         
-        return results.sort((a,b) => b.commits - a.commits)
+        return results.sort((a, b) => b.commits - a.commits)
     } catch (e) {
         console.warn('Failed to calculate projects:', e)
         return []
