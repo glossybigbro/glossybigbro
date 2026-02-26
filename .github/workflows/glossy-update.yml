@@ -28,6 +28,7 @@ jobs:
         
       - name: Run Update Script
         env:
+          TZ: 'Asia/Seoul'
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
         run: npm run update-profile
