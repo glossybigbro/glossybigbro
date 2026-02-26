@@ -1,1 +1,71 @@
-const WAKATIME_API_KEY = process.env.WAKATIME_API_KEY || ''\n\nexport async function fetchWakatimeStats() {\n    try {\n        if (!WAKATIME_API_KEY) throw new Error('WAKATIME_API_KEY is not defined')\n        const encodedKey = Buffer.from(WAKATIME_API_KEY).toString('base64')\n        const ranges = ['all_time', 'last_year', 'last_7_days']\n        let finalData: any = null\n        let finalRange = 'unknown'\n\n        for (const range of ranges) {\n            const response = await fetch(`https://wakatime.com/api/v1/users/current/stats/${range}`, {\n                headers: { 'Authorization': `Basic ${encodedKey}` }\n            })\n            if (response.status === 202) {\n                continue\n            }\n            if (response.ok) {\n                const data = await response.json()\n                const langs = data.data?.languages || []\n                if (langs.length > 0) {\n                    finalData = data\n                    finalRange = range\n                    break\n                }\n            }\n        }\n\n        let languages = finalData?.data?.languages || []\n        const isIncludingToday = finalData?.data?.is_including_today ?? false\n\n        if (!isIncludingToday) {\n            try {\n                const todayStr = new Date().toISOString().split('T')[0]\n                const summariesResponse = await fetch(`https://wakatime.com/api/v1/users/current/summaries?start=${todayStr}&end=${todayStr}`, {\n                    headers: { 'Authorization': `Basic ${encodedKey}` }\n                })\n                if (summariesResponse.ok) {\n                    const todayData = await summariesResponse.json()\n                    const todayLangs = todayData.data?.[0]?.languages || []\n                    if (todayLangs.length > 0) {\n                        const mergedLangsMap = new Map()\n                        for (const lang of languages) {\n                            mergedLangsMap.set(lang.name, { ...lang, total_seconds: lang.total_seconds })\n                        }\n                        for (const todayLang of todayLangs) {\n                            if (mergedLangsMap.has(todayLang.name)) {\n                                mergedLangsMap.get(todayLang.name).total_seconds += todayLang.total_seconds\n                            } else {\n                                mergedLangsMap.set(todayLang.name, { name: todayLang.name, total_seconds: todayLang.total_seconds })\n                            }\n                        }\n                        languages = Array.from(mergedLangsMap.values()).sort((a, b) => b.total_seconds - a.total_seconds)\n                    }\n                }\n            } catch (mergeError) {\n                console.error('Failed to merge today summary:', mergeError)\n            }\n        }\n\n        return {\n            success: true,\n            isCalculating: finalRange === 'unknown',\n            timeRange: finalRange === 'unknown' ? 'today' : finalRange,\n            languages\n        }\n    } catch (e: any) {\n        console.error('WakaTime Fetcher Error:', e.message)\n        return { success: false, languages: [] }\n    }\n}
+const WAKATIME_API_KEY = process.env.WAKATIME_API_KEY || ''
+
+export async function fetchWakatimeStats() {
+    try {
+        if (!WAKATIME_API_KEY) throw new Error('WAKATIME_API_KEY is not defined')
+        const encodedKey = Buffer.from(WAKATIME_API_KEY).toString('base64')
+        const ranges = ['all_time', 'last_year', 'last_7_days']
+        let finalData: any = null
+        let finalRange = 'unknown'
+
+        for (const range of ranges) {
+            const response = await fetch(`https://wakatime.com/api/v1/users/current/stats/${range}`, {
+                headers: { 'Authorization': `Basic ${encodedKey}` }
+            })
+            if (response.status === 202) {
+                continue
+            }
+            if (response.ok) {
+                const data = await response.json()
+                const langs = data.data?.languages || []
+                if (langs.length > 0) {
+                    finalData = data
+                    finalRange = range
+                    break
+                }
+            }
+        }
+
+        let languages = finalData?.data?.languages || []
+        const isIncludingToday = finalData?.data?.is_including_today ?? false
+
+        if (!isIncludingToday) {
+            try {
+                const todayStr = new Date().toISOString().split('T')[0]
+                const summariesResponse = await fetch(`https://wakatime.com/api/v1/users/current/summaries?start=${todayStr}&end=${todayStr}`, {
+                    headers: { 'Authorization': `Basic ${encodedKey}` }
+                })
+                if (summariesResponse.ok) {
+                    const todayData = await summariesResponse.json()
+                    const todayLangs = todayData.data?.[0]?.languages || []
+                    if (todayLangs.length > 0) {
+                        const mergedLangsMap = new Map()
+                        for (const lang of languages) {
+                            mergedLangsMap.set(lang.name, { ...lang, total_seconds: lang.total_seconds })
+                        }
+                        for (const todayLang of todayLangs) {
+                            if (mergedLangsMap.has(todayLang.name)) {
+                                mergedLangsMap.get(todayLang.name).total_seconds += todayLang.total_seconds
+                            } else {
+                                mergedLangsMap.set(todayLang.name, { name: todayLang.name, total_seconds: todayLang.total_seconds })
+                            }
+                        }
+                        languages = Array.from(mergedLangsMap.values()).sort((a, b) => b.total_seconds - a.total_seconds)
+                    }
+                }
+            } catch (mergeError) {
+                console.error('Failed to merge today summary:', mergeError)
+            }
+        }
+
+        return {
+            success: true,
+            isCalculating: finalRange === 'unknown',
+            timeRange: finalRange === 'unknown' ? 'today' : finalRange,
+            languages
+        }
+    } catch (e: any) {
+        console.error('WakaTime Fetcher Error:', e.message)
+        return { success: false, languages: [] }
+    }
+}
