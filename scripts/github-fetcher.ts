@@ -80,7 +80,7 @@ export async function fetchUserRepositories(username: string) {
         sinceDate.setDate(sinceDate.getDate() - 7)
         
         const query = `
-            query($login: String!, $userId: ID!, $since: GitTimestamp!) {
+            query($login: String!) {
                 user(login: $login) {
                     repositories(first: 100, isFork: false, orderBy: {field: PUSHED_AT, direction: DESC}) {
                         nodes {
@@ -88,9 +88,6 @@ export async function fetchUserRepositories(username: string) {
                             pushedAt
                             languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
                                 edges { size node { name } }
-                            }
-                            defaultBranchRef {
-                                target { ... on Commit { history(author: {id: $userId}, since: $since) { totalCount } } }
                             }
                         }
                     }
