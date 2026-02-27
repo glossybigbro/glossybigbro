@@ -75,16 +75,10 @@ export async function fetchProductiveTime(username: string) {
 
 export async function fetchUserRepositories(username: string) {
     try {
-        // 1. Fetch User Node ID to filter commit history
-        const userQuery = `query($login: String!) { user(login: $login) { id } }`
-        const userRes = await fetchGraphql(userQuery, { login: username })
-        const userId = userRes.data?.user?.id
-        if (!userId) return []
-
-        // 2. Fetch Repositories with ID
+        // 1. Fetch Repositories
         const sinceDate = new Date()
         sinceDate.setDate(sinceDate.getDate() - 7)
-        const sinceIso = sinceDate.toISOString()
+        
         const query = `
             query($login: String!, $userId: ID!, $since: GitTimestamp!) {
                 user(login: $login) {
@@ -103,7 +97,7 @@ export async function fetchUserRepositories(username: string) {
                 }
             }
         `
-        const { data } = await fetchGraphql(query, { login: username, userId, since: sinceIso })
+        const { data } = await fetchGraphql(query, { login: username })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return data?.user?.repositories?.nodes || []
     } catch (e) {
@@ -118,9 +112,15 @@ export function calculateWeeklyLanguages(repos: any[]) {
         const langMap = new Map()
         let totalBytes = 0
         
+        const sevenDaysAgo = new Date()
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+        
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         for (const repo of repos) {
             if (!repo.languages?.edges) continue
+            // Apply 7-day limit
+            if (repo.pushedAt && new Date(repo.pushedAt) < sevenDaysAgo) continue
+            
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             for (const { size, node } of repo.languages.edges) {
                 const current = langMap.get(node.name) || { size: 0, count: 0 }

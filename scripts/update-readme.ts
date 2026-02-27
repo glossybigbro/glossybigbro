@@ -51,7 +51,7 @@ const ProductiveTimeTitles = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getDynamicTitle = (style: string, stats: any): string => {
-    const { morning, daytime, evening, night } = stats.commits
+    const { morning, daytime, evening, night } = stats
     const max = Math.max(morning, daytime, evening, night)
     let title = ''
     if (max === morning) title = ProductiveTimeTitles.morning
@@ -60,16 +60,20 @@ const getDynamicTitle = (style: string, stats: any): string => {
     else if (max === night) title = ProductiveTimeTitles.night
     else title = ProductiveTimeTitles.flexible
 
-    return style === 'terminal' ? `>_ ${title}` : title
+    if (style === 'terminal') return `>_ ${title}`
+    return title
 }
 
 const generateCyberDeckAscii = (stats: any) => {
     const { morning, daytime, evening, night, commits } = stats
     const row = (icon: string, label: string, count: number, percentage: number) => {
         const bar = createBar(percentage, 25, '█', '░')
-        return `${icon} ${label.padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits    ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+        const labelPad = label.padEnd(25, ' ')
+        const statPad = `${count.toString().padStart(8, ' ')} commits`.padEnd(26, ' ')
+        return `${icon} ${labelPad} ${statPad} ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
     }
     return '```text\n' +
+        `${getDynamicTitle('cyber', stats)}\n\n` +
         row('🌞', 'Morning', commits.morning, morning) + '\n' +
         row('🌆', 'Daytime', commits.daytime, daytime) + '\n' +
         row('🌃', 'Evening', commits.evening, evening) + '\n' +
@@ -80,9 +84,12 @@ const generateModernSquareAscii = (stats: any) => {
     const { morning, daytime, evening, night, commits } = stats
     const row = (icon: string, label: string, count: number, percentage: number) => {
         const bar = createBar(percentage, 25, '■', '□')
-        return `${icon} ${label.toUpperCase().padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+        const labelPad = label.toUpperCase().padEnd(25, ' ')
+        const statPad = `${count.toString().padStart(8, ' ')} commits`.padEnd(26, ' ')
+        return `${icon} ${labelPad} ${statPad} ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
     }
     return '```text\n' +
+        `${getDynamicTitle('modern', stats)}\n\n` +
         row('🏙️', 'Morning', commits.morning, morning) + '\n' +
         row('🏢', 'Daytime', commits.daytime, daytime) + '\n' +
         row('🌉', 'Evening', commits.evening, evening) + '\n' +
@@ -93,9 +100,12 @@ const generateMinimalDotAscii = (stats: any) => {
     const { morning, daytime, evening, night, commits } = stats
     const row = (icon: string, label: string, count: number, percentage: number) => {
         const bar = createBar(percentage, 25, '●', '○')
-        return `${icon} ${label.padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+        const labelPad = label.padEnd(25, ' ')
+        const statPad = `${count.toString().padStart(8, ' ')} commits`.padEnd(26, ' ')
+        return `${icon} ${labelPad} ${statPad} ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
     }
     return '```text\n' +
+        `${getDynamicTitle('minimal', stats)}\n\n` +
         row('🕕', 'Morning', commits.morning, morning) + '\n' +
         row('🕛', 'Daytime', commits.daytime, daytime) + '\n' +
         row('🕡', 'Evening', commits.evening, evening) + '\n' +
@@ -106,9 +116,12 @@ const generateTerminalAscii = (stats: any) => {
     const { morning, daytime, evening, night, commits } = stats
     const row = (label: string, count: number, percentage: number) => {
         const bar = createBar(percentage, 25, '⣿', '⣀')
-        return `> ${label.padEnd(15, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+        const labelPad = label.padEnd(26, ' ')
+        const statPad = `${count.toString().padStart(8, ' ')} commits`.padEnd(26, ' ')
+        return `> ${labelPad} ${statPad} ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
     }
     return '```text\n' +
+        `${getDynamicTitle('terminal', stats)}\n\n` +
         row('Morning', commits.morning, morning) + '\n' +
         row('Daytime', commits.daytime, daytime) + '\n' +
         row('Evening', commits.evening, evening) + '\n' +
@@ -119,9 +132,12 @@ const generateSliderAscii = (stats: any) => {
     const { morning, daytime, evening, night, commits } = stats
     const row = (icon: string, label: string, count: number, percentage: number) => {
         const bar = createSlider(percentage, 25, '─', '●')
-        return `${icon} ${label.padEnd(14, ' ')} ${count.toString().padStart(6, ' ')} commits     ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
+        const labelPad = label.padEnd(25, ' ')
+        const statPad = `${count.toString().padStart(8, ' ')} commits`.padEnd(26, ' ')
+        return `${icon} ${labelPad} ${statPad} ${bar}    ${percentage.toFixed(2).padStart(5, '0')} %`
     }
     return '```text\n' +
+        `${getDynamicTitle('slider', stats)}\n\n` +
         row('🕐', 'Morning', commits.morning, morning) + '\n' +
         row('☀️', 'Daytime', commits.daytime, daytime) + '\n' +
         row('🌕', 'Evening', commits.evening, evening) + '\n' +
@@ -232,7 +248,7 @@ const generateProductiveTimeAscii = (style: string, stats: any) => {
     else if (style === 'slider') ascii = generateSliderAscii(stats)
     else ascii = generateCyberDeckAscii(stats)
     
-    return getDynamicTitle(style, stats) + '\n' + ascii
+    return ascii
 }
 
 async function updateReadme() {
@@ -398,6 +414,34 @@ async function updateReadme() {
                         break
                     case 'waka-10k-hours':
                         markdownToInject = '\n' + generateWaka10kHoursAscii(wakaData, bConf, config)
+                        break
+
+                    case 'activity-graph':
+                        const agTheme = bConf.activityGraphTheme || config.activityGraphTheme || 'tokyo-night'
+                        const agAreaFill = bConf.activityGraphAreaFill !== undefined ? bConf.activityGraphAreaFill : (config.activityGraphAreaFill !== undefined ? config.activityGraphAreaFill : true)
+                        const agHideBorder = bConf.activityGraphHideBorder !== undefined ? bConf.activityGraphHideBorder : (config.activityGraphHideBorder || false)
+                        const agHideTitle = bConf.activityGraphHideTitle !== undefined ? bConf.activityGraphHideTitle : (config.activityGraphHideTitle || false)
+                        const agGrid = bConf.activityGraphGrid !== undefined ? bConf.activityGraphGrid : (config.activityGraphGrid || false)
+                        const agDays = bConf.activityGraphDays || config.activityGraphDays || 31
+                        const agRadius = bConf.activityGraphRadius !== undefined ? bConf.activityGraphRadius : (config.activityGraphRadius || 0)
+                        const agCustomTitle = bConf.activityGraphCustomTitle || config.activityGraphCustomTitle || ''
+
+                        const agBaseUrl = 'https://github-readme-activity-graph.vercel.app/graph'
+                        const agParams = new URLSearchParams({
+                            username: config.username,
+                            theme: agTheme,
+                            area: agAreaFill.toString(),
+                            hide_border: agHideBorder.toString(),
+                            hide_title: agHideTitle.toString(),
+                            grid: agGrid.toString(),
+                            days: agDays.toString(),
+                            radius: agRadius.toString(),
+                        })
+                        if (agCustomTitle) {
+                            agParams.append('custom_title', agCustomTitle)
+                        }
+                        const agUrl = `${agBaseUrl}?${agParams.toString()}`
+                        markdownToInject = `\n<a href="https://github.com/${config.username}">\n    <img src="${agUrl}" alt="${config.username}'s GitHub Activity Graph" width="100%" />\n</a>\n`
                         break
                 }
 
