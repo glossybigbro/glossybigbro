@@ -1,17 +1,17 @@
 <!-- glossy-activity-graph-1772194697580-0.35369532756451516-start -->
 <a href="https://github.com/glossybigbro">
-    <img src="https://github-readme-activity-graph.vercel.app/graph?username=glossybigbro&theme=tokyo-night&area=true&hide_border=false&hide_title=true&grid=false&days=31&radius=0" alt="glossybigbro's GitHub Activity Graph" width="100%" />
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username=glossybigbro&theme=vue&area=true&hide_border=true&hide_title=true&grid=true&days=31&radius=8" alt="glossybigbro's GitHub Activity Graph" width="100%" />
 </a>
 <!-- glossy-activity-graph-1772194697580-0.35369532756451516-end -->
 
 <!-- glossy-productive-time-1772195237800-0.5722430511922554-start -->
 ```text
-I'm a Night Owl 🦉
+🦉 Night Owl
 
 🏙️ MORNING                          0 commits           □□□□□□□□□□□□□□□□□□□□□□□□□    00.00 %
-🏢 DAYTIME                          2 commits           ■■■□□□□□□□□□□□□□□□□□□□□□□    10.00 %
-🌉 EVENING                          8 commits           ■■■■■■■■■■□□□□□□□□□□□□□□□    38.00 %
-🌃 NIGHT                           11 commits           ■■■■■■■■■■■■■□□□□□□□□□□□□    52.00 %
+🏢 DAYTIME                          2 commits           ■■□□□□□□□□□□□□□□□□□□□□□□□    09.00 %
+🌉 EVENING                          9 commits           ■■■■■■■■■■□□□□□□□□□□□□□□□    41.00 %
+🌃 NIGHT                           11 commits           ■■■■■■■■■■■■■□□□□□□□□□□□□    50.00 %
 ```
 <!-- glossy-productive-time-1772195237800-0.5722430511922554-end -->
 
@@ -29,8 +29,8 @@ JavaScript                          1 Repos             ░░░░░░░░
 ```text
 🐱💻 Weekly Projects
 
-glossybigbro                       16 contribs          🟢  76.19 %
-github-profile-generator            5 contribs          🟢  23.81 %
+glossybigbro                       17 contribs          🟢  77.27 %
+github-profile-generator            5 contribs          🟢  22.73 %
 ```
 <!-- glossy-weekly-projects-1772195263597-0.20874528774297918-end -->
 
@@ -38,8 +38,8 @@ github-profile-generator            5 contribs          🟢  23.81 %
 ```text
 🐱💻 Weekly Projects
 
-github-profile-generator            5 contribs          🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜  23.81 %
-glossybigbro                       16 contribs          🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜  76.19 %
+github-profile-generator            5 contribs          🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜  22.73 %
+glossybigbro                       17 contribs          🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜  77.27 %
 ```
 <!-- glossy-weekly-projects-1772195273722-0.15095337372216577-end -->
 
@@ -54,7 +54,7 @@ JavaScript                          1 Repos             🔵   0.15 %
 
 <!-- glossy-activity-graph-1772195298767-0.7388595106905123-start -->
 <a href="https://github.com/glossybigbro">
-    <img src="https://github-readme-activity-graph.vercel.app/graph?username=glossybigbro&theme=tokyo-night&area=true&hide_border=false&hide_title=true&grid=false&days=31&radius=0" alt="glossybigbro's GitHub Activity Graph" width="100%" />
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username=glossybigbro&theme=tokyo-night&area=true&hide_border=true&hide_title=true&grid=false&days=10&radius=10" alt="glossybigbro's GitHub Activity Graph" width="100%" />
 </a>
 <!-- glossy-activity-graph-1772195298767-0.7388595106905123-end -->
 
