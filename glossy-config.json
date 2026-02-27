@@ -73,11 +73,11 @@
   "wakatimeKey": "",
   "blocks": [
     {
-      "id": "1772184970802-0.16110865397231033",
+      "id": "1772194697580-0.35369532756451516",
       "type": "widget",
       "widgetType": "activity-graph",
       "config": {
-        "activityGraphTheme": "dracula",
+        "activityGraphTheme": "vue",
         "activityGraphAreaFill": true,
         "activityGraphHideBorder": true,
         "activityGraphHideTitle": true,
@@ -86,58 +86,34 @@
         "activityGraphRadius": 8,
         "activityGraphCustomTitle": ""
       },
-      "createdAt": 1772184970802
+      "createdAt": 1772194697580
     },
     {
-      "id": "1772184990254-0.060854893351328876",
+      "id": "1772195237800-0.5722430511922554",
       "type": "widget",
       "widgetType": "productive-time",
       "config": {
         "productiveTime": {
-          "style": "cyber",
+          "style": "modern",
           "isAnalyzed": true,
           "stats": {
             "morning": 0,
-            "daytime": 11,
-            "evening": 28,
-            "night": 61,
+            "daytime": 10,
+            "evening": 38,
+            "night": 52,
             "commits": {
               "morning": 0,
               "daytime": 2,
-              "evening": 5,
+              "evening": 8,
               "night": 11
             }
           }
         }
       },
-      "createdAt": 1772184990254
+      "createdAt": 1772195237800
     },
     {
-      "id": "1772184996984-0.9006945001234191",
-      "type": "widget",
-      "widgetType": "productive-time",
-      "config": {
-        "productiveTime": {
-          "style": "terminal",
-          "isAnalyzed": true,
-          "stats": {
-            "morning": 0,
-            "daytime": 11,
-            "evening": 28,
-            "night": 61,
-            "commits": {
-              "morning": 0,
-              "daytime": 2,
-              "evening": 5,
-              "night": 11
-            }
-          }
-        }
-      },
-      "createdAt": 1772184996984
-    },
-    {
-      "id": "1772185004047-0.9044971594460782",
+      "id": "1772195244181-0.6872593382683472",
       "type": "widget",
       "widgetType": "weekly-languages",
       "config": {
@@ -155,12 +131,12 @@
           {
             "name": "TypeScript",
             "count": 2,
-            "percent": 83.62
+            "percent": 83.73
           },
           {
             "name": "CSS",
             "count": 1,
-            "percent": 16.23
+            "percent": 16.12
           },
           {
             "name": "JavaScript",
@@ -170,88 +146,15 @@
         ],
         "title": "💬 Weekly Languages"
       },
-      "createdAt": 1772185004047
+      "createdAt": 1772195244181
     },
     {
-      "id": "1772185010842-0.818907536002437",
-      "type": "widget",
-      "widgetType": "weekly-languages",
-      "config": {
-        "weeklyLanguages": {
-          "style": "emoji",
-          "count": 5,
-          "excludeLanguages": [
-            "Markdown",
-            "JSON",
-            "CSS"
-          ],
-          "sortBy": "alphabetical"
-        },
-        "useRealData": true,
-        "realData": [
-          {
-            "name": "TypeScript",
-            "count": 2,
-            "percent": 83.62
-          },
-          {
-            "name": "CSS",
-            "count": 1,
-            "percent": 16.23
-          },
-          {
-            "name": "JavaScript",
-            "count": 1,
-            "percent": 0.15
-          }
-        ],
-        "title": "💬 Weekly Languages"
-      },
-      "createdAt": 1772185010842
-    },
-    {
-      "id": "1772185023083-0.8208838826315259",
-      "type": "widget",
-      "widgetType": "weekly-languages",
-      "config": {
-        "weeklyLanguages": {
-          "style": "compact",
-          "count": 5,
-          "excludeLanguages": [
-            "Markdown",
-            "JSON"
-          ],
-          "sortBy": "recent"
-        },
-        "useRealData": true,
-        "realData": [
-          {
-            "name": "TypeScript",
-            "count": 2,
-            "percent": 83.62
-          },
-          {
-            "name": "CSS",
-            "count": 1,
-            "percent": 16.23
-          },
-          {
-            "name": "JavaScript",
-            "count": 1,
-            "percent": 0.15
-          }
-        ],
-        "title": "💬 Weekly Languages"
-      },
-      "createdAt": 1772185023083
-    },
-    {
-      "id": "1772185044825-0.5064423959978585",
+      "id": "1772195263597-0.20874528774297918",
       "type": "widget",
       "widgetType": "weekly-projects",
       "config": {
         "weeklyProjects": {
-          "style": "progress",
+          "style": "compact",
           "count": 5,
           "sortBy": "commits"
         },
@@ -259,141 +162,166 @@
         "realData": [
           {
             "name": "glossybigbro",
-            "commits": 13,
-            "percent": 72.22
+            "commits": 16,
+            "percent": 76.19
           },
           {
             "name": "github-profile-generator",
             "commits": 5,
-            "percent": 27.78
+            "percent": 23.81
           }
         ],
         "title": "🐱💻 Weekly Projects"
       },
-      "createdAt": 1772185044825
+      "createdAt": 1772195263597
     },
     {
-      "id": "1772185055003-0.44331835582891",
-      "type": "widget",
-      "widgetType": "weekly-projects",
-      "config": {
-        "weeklyProjects": {
-          "style": "compact",
-          "count": 5,
-          "sortBy": "alphabetical",
-          "themeColor": "red"
-        },
-        "useRealData": true,
-        "realData": [
-          {
-            "name": "glossybigbro",
-            "commits": 13,
-            "percent": 72.22
-          },
-          {
-            "name": "github-profile-generator",
-            "commits": 5,
-            "percent": 27.78
-          }
-        ],
-        "title": "🐱💻 Weekly Projects"
-      },
-      "createdAt": 1772185055003
-    },
-    {
-      "id": "1772185066651-0.7440396729296849",
+      "id": "1772195273722-0.15095337372216577",
       "type": "widget",
       "widgetType": "weekly-projects",
       "config": {
         "weeklyProjects": {
           "style": "emoji",
           "count": 5,
-          "sortBy": "recent"
+          "sortBy": "alphabetical",
+          "themeColor": "blue"
         },
         "useRealData": true,
         "realData": [
           {
             "name": "glossybigbro",
-            "commits": 13,
-            "percent": 72.22
+            "commits": 16,
+            "percent": 76.19
           },
           {
             "name": "github-profile-generator",
             "commits": 5,
-            "percent": 27.78
+            "percent": 23.81
           }
         ],
         "title": "🐱💻 Weekly Projects"
       },
-      "createdAt": 1772185066651
+      "createdAt": 1772195273723
     },
     {
-      "id": "1772185092648-0.12449931071272735",
+      "id": "1772195286484-0.5431842290751545",
+      "type": "widget",
+      "widgetType": "weekly-languages",
+      "config": {
+        "weeklyLanguages": {
+          "style": "compact",
+          "count": 5,
+          "excludeLanguages": [
+            "Markdown",
+            "JSON",
+            "CSS"
+          ],
+          "sortBy": "recent"
+        },
+        "useRealData": true,
+        "realData": [
+          {
+            "name": "TypeScript",
+            "count": 2,
+            "percent": 83.73
+          },
+          {
+            "name": "CSS",
+            "count": 1,
+            "percent": 16.12
+          },
+          {
+            "name": "JavaScript",
+            "count": 1,
+            "percent": 0.15
+          }
+        ],
+        "title": "💬 Weekly Languages"
+      },
+      "createdAt": 1772195286484
+    },
+    {
+      "id": "1772195298767-0.7388595106905123",
+      "type": "widget",
+      "widgetType": "activity-graph",
+      "config": {
+        "activityGraphTheme": "tokyo-night",
+        "activityGraphAreaFill": true,
+        "activityGraphHideBorder": true,
+        "activityGraphHideTitle": true,
+        "activityGraphGrid": false,
+        "activityGraphDays": 10,
+        "activityGraphRadius": 10,
+        "activityGraphCustomTitle": ""
+      },
+      "createdAt": 1772195298767
+    },
+    {
+      "id": "1772197142414-0.612088502928488",
       "type": "widget",
       "widgetType": "waka-10k-hours",
       "config": {
         "useRealData": true,
         "wakaRealData": {
-          "totalSeconds": 31853.729999999996,
-          "percent": 0.08848258333333332
+          "totalSeconds": 32685.739,
+          "percent": 0.09079371944444445
         },
-        "theme": "classic",
         "goalTitle": "Master of TypeScript"
       },
-      "createdAt": 1772185092648
+      "createdAt": 1772197142414
     },
     {
-      "id": "1772185097596-0.6891981171666189",
+      "id": "1772197147108-0.4121739350405641",
       "type": "widget",
       "widgetType": "waka-10k-hours",
       "config": {
         "useRealData": true,
         "wakaRealData": {
-          "totalSeconds": 31853.729999999996,
-          "percent": 0.08848258333333332
+          "totalSeconds": 32685.739,
+          "percent": 0.09079371944444445
         },
         "theme": "rpg",
         "displayMode": "remaining",
-        "goalTitle": "King of TypeScript"
+        "goalTitle": "K of TypeScript"
       },
-      "createdAt": 1772185097596
+      "createdAt": 1772197147108
     },
     {
-      "id": "1772185116715-0.3203352430176766",
+      "id": "1772197160036-0.9504997045496816",
       "type": "widget",
       "widgetType": "waka-10k-hours",
       "config": {
         "useRealData": true,
         "wakaRealData": {
-          "totalSeconds": 31853.729999999996,
-          "percent": 0.08848258333333332
+          "totalSeconds": 32685.739,
+          "percent": 0.09079371944444445
+        },
+        "theme": "terminal",
+        "goalTitle": "Q of TypeScript"
+      },
+      "createdAt": 1772197160036
+    },
+    {
+      "id": "1772197167350-0.6746917400991023",
+      "type": "widget",
+      "widgetType": "waka-10k-hours",
+      "config": {
+        "useRealData": true,
+        "wakaRealData": {
+          "totalSeconds": 32685.739,
+          "percent": 0.09079371944444445
         },
         "theme": "minimal",
         "displayMode": "remaining",
-        "goalTitle": "Ung of TypeScript"
+        "goalTitle": "M of TypeScript"
       },
-      "createdAt": 1772185116715
+      "createdAt": 1772197167350
     },
     {
-      "id": "1772185107263-0.2790147419999387",
-      "type": "widget",
-      "widgetType": "waka-10k-hours",
-      "config": {
-        "useRealData": true,
-        "wakaRealData": {
-          "totalSeconds": 31853.729999999996,
-          "percent": 0.08848258333333332
-        },
-        "theme": "terminal",
-        "goalTitle": "Um of TypeScript"
-      },
-      "createdAt": 1772185107263
-    },
-    {
-      "id": "block-1772193230959-auto-empty",
+      "id": "block-1772197142414-auto-empty",
       "type": "text",
       "content": "",
-      "createdAt": 1772193230959
+      "createdAt": 1772197142414
     }
   ]
 }
