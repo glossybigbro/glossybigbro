@@ -7,13 +7,17 @@ export async function fetchWakatimeStats() {
         const ranges = ['all_time', 'last_year', 'last_7_days']
         let finalData: any = null
         let finalRange = 'unknown'
+        let isCalculating = false
 
         for (const range of ranges) {
             const response = await fetch(`https://wakatime.com/api/v1/users/current/stats/${range}`, {
-                headers: { 'Authorization': `Basic ${encodedKey}` }
+                headers: { 'Authorization': `Basic ${encodedKey}` },
+                cache: 'no-store'
             })
             if (response.status === 202) {
-                continue
+                isCalculating = true
+                finalRange = range
+                break
             }
             if (response.ok) {
                 const data = await response.json()
@@ -26,6 +30,15 @@ export async function fetchWakatimeStats() {
             }
         }
 
+        if (isCalculating) {
+            return {
+                success: true,
+                isCalculating: true,
+                timeRange: finalRange,
+                languages: []
+            }
+        }
+
         let languages = finalData?.data?.languages || []
         const isIncludingToday = finalData?.data?.is_including_today ?? false
 
@@ -33,7 +46,8 @@ export async function fetchWakatimeStats() {
             try {
                 const todayStr = new Date().toISOString().split('T')[0]
                 const summariesResponse = await fetch(`https://wakatime.com/api/v1/users/current/summaries?start=${todayStr}&end=${todayStr}`, {
-                    headers: { 'Authorization': `Basic ${encodedKey}` }
+                    headers: { 'Authorization': `Basic ${encodedKey}` },
+                    cache: 'no-store'
                 })
                 if (summariesResponse.ok) {
                     const todayData = await summariesResponse.json()
@@ -58,9 +72,18 @@ export async function fetchWakatimeStats() {
             }
         }
 
+        if (languages.length === 0) {
+            return {
+                success: true,
+                isCalculating: false,
+                timeRange: finalRange === 'unknown' ? 'today' : finalRange,
+                languages: []
+            }
+        }
+
         return {
             success: true,
-            isCalculating: finalRange === 'unknown',
+            isCalculating: false,
             timeRange: finalRange === 'unknown' ? 'today' : finalRange,
             languages
         }

@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { fetchProductiveTime, fetchUserRepositories, calculateWeeklyLanguages, calculateWeeklyProjects } from './github-fetcher'
+import { fetchProductiveTime, fetchUserRepositories, fetchUserEvents, calculateWeeklyLanguages, calculateWeeklyProjects } from './github-fetcher'
 import { fetchWakatimeStats } from './wakatime-fetcher'
 
 const README_PATH = path.join(process.cwd(), 'README.md')
@@ -164,7 +164,7 @@ const generateWaka10kHoursAscii = (wakaData: any, bConf: any, config: any) => {
             markdown += `[ SYSTEM STATUS ]\n`
             markdown += `> ${stateMessage}\n`
         } else if (theme === 'rpg') {
-            markdown += `> ⚔️  [CLASS: ${targetLanguage} Artisan]\n`
+            markdown += `> ⚔️ [CLASS: ${targetLanguage} Artisan]\n`
             markdown += `> ⏳ SYSTEM ALERTS:\n`
             markdown += `>    ${stateMessage}\n`
         } else if (theme === 'terminal') {
@@ -188,7 +188,7 @@ const generateWaka10kHoursAscii = (wakaData: any, bConf: any, config: any) => {
         const chartBlocks = Math.floor(pctNumber / 5)
         const filled = '▓'.repeat(chartBlocks)
         const empty = '┈'.repeat(LIMIT_LENGTH(20 - chartBlocks))
-        markdown += `> ⚔️  [CLASS: ${targetLanguage} Artisan]\n`
+        markdown += `> ⚔️ [CLASS: ${targetLanguage} Artisan]\n`
         if (displayMode === 'accumulated') {
             markdown += `> 📊 EXP: ${totalHours.toLocaleString()} / 10,000 (Lv. ${level})\n`
         } else {
@@ -211,9 +211,9 @@ const generateWaka10kHoursAscii = (wakaData: any, bConf: any, config: any) => {
         const namePad = targetLanguage.padEnd(12, ' ')
         const hoursPad = (displayMode === 'accumulated' ? `${totalHours.toLocaleString()} hrs` : `${remainingHours.toLocaleString()} hrs`).padStart(14, ' ')
         const barPad = `${filled}${empty} (${percentage}%)`.padStart(18, ' ')
-        const headerTime = displayMode === 'accumulated' ? 'LOGGED TIME   ' : 'REMAINING TIME'
-        markdown += `LANGUAGE     ${headerTime}      PROGRESS\n`
-        markdown += `${namePad} ${hoursPad}   ${barPad}\n`
+        const headerTime = (displayMode === 'accumulated' ? 'LOGGED TIME' : 'REMAINING TIME').padStart(14, ' ')
+        markdown += `LANGUAGE         ${headerTime}   PROGRESS\n`
+        markdown += `${namePad}     ${hoursPad}   ${barPad}\n`
     }
     markdown += '```\n'
     return markdown
@@ -271,10 +271,15 @@ async function updateReadme() {
         if (dynamicBlocks.some((b: any) => b.widgetType === 'productive-time')) {
             timeData = await fetchProductiveTime(config.username)
         }
-        const needsRepos = dynamicBlocks.some((b: any) => ['weekly-languages', 'weekly-projects'].includes(b.widgetType))
+        const needsRepos = dynamicBlocks.some((b: any) => b.widgetType === 'weekly-languages')
+        const needsEvents = dynamicBlocks.some((b: any) => b.widgetType === 'weekly-projects')
         let rawRepos: any = []
+        let rawEvents: any = []
         if (needsRepos) {
             rawRepos = await fetchUserRepositories(config.username)
+        }
+        if (needsEvents) {
+            rawEvents = await fetchUserEvents(config.username)
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (dynamicBlocks.some((b: any) => b.widgetType === 'weekly-languages')) {
@@ -282,7 +287,7 @@ async function updateReadme() {
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (dynamicBlocks.some((b: any) => b.widgetType === 'weekly-projects')) {
-            projData = calculateWeeklyProjects(rawRepos)
+            projData = calculateWeeklyProjects(rawEvents)
         }
         if (dynamicBlocks.some((b: any) => b.widgetType === 'waka-10k-hours')) {
             wakaData = await fetchWakatimeStats()
@@ -337,9 +342,11 @@ async function updateReadme() {
                                 else if (visualizationStyle === 'emoji') bar = generateEmojiBar(lang.percent, emojis.square, 10)
                                 else if (visualizationStyle === 'compact') bar = generateCompactBadge(emojis.circle)
                                 
-                                const namePad = lang.name.padEnd(15, ' ')
-                                const statPad = `${lang.count} Repos`.padEnd(15, ' ')
-                                const percentPad = `${lang.percent} %`.padStart(7, ' ')
+                                const safeName = lang.name.length > 26 ? lang.name.substring(0, 26) + '..' : lang.name
+                                const namePad = safeName.padEnd(28, ' ')
+                                const repoStr = String(lang.count).padStart(8, ' ')
+                                const statPad = `${repoStr} Repos`.padEnd(26, ' ')
+                                const percentPad = `${lang.percent} %`.padStart(8, ' ')
                                 markdownToInject += `${namePad} ${statPad} ${bar} ${percentPad}\n`
                             })
                         }
@@ -379,9 +386,11 @@ async function updateReadme() {
                                 else if (pVisualizationStyle === 'emoji') bar = generateEmojiBar(proj.percent, pEmojis.square, 10)
                                 else if (pVisualizationStyle === 'compact') bar = generateCompactBadge(pEmojis.circle)
                                 
-                                const namePad = proj.name.padEnd(20, ' ')
-                                const statPad = `${proj.commits} commits`.padEnd(15, ' ')
-                                const percentPad = `${proj.percent} %`.padStart(7, ' ')
+                                const safeName = proj.name.length > 26 ? proj.name.substring(0, 26) + '..' : proj.name
+                                const namePad = safeName.padEnd(28, ' ')
+                                const commitsStr = String(proj.commits).padStart(8, ' ')
+                                const statPad = `${commitsStr} contribs`.padEnd(26, ' ')
+                                const percentPad = `${proj.percent} %`.padStart(8, ' ')
                                 markdownToInject += `${namePad} ${statPad} ${bar} ${percentPad}\n`
                             })
                         }

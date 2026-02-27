@@ -1,13 +1,13 @@
-import fs from 'fs'
-
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || ''
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function fetchGithub(url: string) {
+async function fetchGithub(url: string, options: any = {}) {
     const res = await fetch(url, {
+        ...options,
         headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3+json'
+            'Authorization': `Bearer ${GITHUB_TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json',
+            ...(options.headers || {})
         }
     })
     if (!res.ok) throw new Error(`GitHub API failed: ${res.status}`)
@@ -39,7 +39,10 @@ export async function fetchProductiveTime(username: string) {
         
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         pushEvents.forEach((event: any) => {
-            const hour = new Date(event.created_at).getHours()
+            // Use local runtime timezone (Set via TZ env variable in Github Actions)
+            const date = new Date(event.created_at)
+            const hour = date.getHours()
+
             if (hour >= 6 && hour < 12) timeBuckets.morning++
             else if (hour >= 12 && hour < 18) timeBuckets.daytime++
             else if (hour >= 18 && hour < 24) timeBuckets.evening++
@@ -78,7 +81,7 @@ export async function fetchUserRepositories(username: string) {
         const userId = userRes.data?.user?.id
         if (!userId) return []
 
-        // 2. Fetch Repositories with ID & Filter commits by last 7 days ($since)
+        // 2. Fetch Repositories with ID
         const sinceDate = new Date()
         sinceDate.setDate(sinceDate.getDate() - 7)
         const sinceIso = sinceDate.toISOString()
@@ -115,14 +118,8 @@ export function calculateWeeklyLanguages(repos: any[]) {
         const langMap = new Map()
         let totalBytes = 0
         
-        const sinceDate = new Date()
-        sinceDate.setDate(sinceDate.getDate() - 7)
-        
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         for (const repo of repos) {
-            const pushedAt = new Date(repo.pushedAt)
-            if (pushedAt < sinceDate) continue
-            
             if (!repo.languages?.edges) continue
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             for (const { size, node } of repo.languages.edges) {
@@ -148,29 +145,53 @@ export function calculateWeeklyLanguages(repos: any[]) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function calculateWeeklyProjects(repos: any[]) {
+export async function fetchUserEvents(username: string) {
     try {
-        let results: Array<{name: string, commits: number, percent?: number}> = []
-        let totalCommits = 0
-        
-        const sinceDate = new Date()
-        sinceDate.setDate(sinceDate.getDate() - 7)
-        
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        for (const repo of repos) {
-            const pushedAt = new Date(repo.pushedAt)
-            if (pushedAt < sinceDate) continue
-            
-            const commits = repo.defaultBranchRef?.target?.history?.totalCount || 0
-            if (commits > 0) {
-                results.push({ name: repo.name, commits })
-                totalCommits += commits
-            }
+        const events: any[] = []
+        for (let page = 1; page <= 3; page++) {
+            const data = await fetchGithub(`https://api.github.com/users/${username}/events/public?per_page=100&page=${page}`)
+            events.push(...data)
+            if (data.length < 100) break
         }
+        return events
+    } catch(e) {
+        return []
+    }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function calculateWeeklyProjects(events: any[]) {
+    try {
+        const projectMap = new Map<string, number>()
+        let totalCount = 0
         
-        results = results.map(r => ({
-            ...r,
-            percent: totalCommits > 0 ? Math.round((r.commits / totalCommits) * 100 * 100) / 100 : 0
+        const sevenDaysAgo = new Date()
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        events.forEach((event: any) => {
+            if (!event.created_at || new Date(event.created_at) < sevenDaysAgo) return
+            let count = 0
+            if (event.type === 'PushEvent') {
+                count = event.payload?.commits?.length || event.payload?.size || 1
+            } else if (event.type === 'PullRequestEvent') {
+                const action = event.payload?.action
+                if (action === 'opened' || action === 'closed') count = 1
+            } else if (event.type === 'CreateEvent') {
+                count = 1
+            }
+            if (count > 0) {
+                const repoName = event.repo?.name?.split('/')[1] || event.repo?.name
+                projectMap.set(repoName, (projectMap.get(repoName) || 0) + count)
+                totalCount += count
+            }
+        })
+        
+        if (totalCount === 0) return []
+        
+        const results = Array.from(projectMap.entries()).map(([name, count]) => ({
+            name,
+            commits: count,
+            percent: Math.round((count / totalCount) * 100 * 100) / 100
         }))
         
         return results.sort((a, b) => b.commits - a.commits)
