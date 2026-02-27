@@ -78,8 +78,8 @@ github-profile-generator 5 commits       🟥🟥🟥⬜⬜⬜⬜⬜⬜⬜ 27.78
 ```text
 Master of TypeScript
 
-Total: 4.6 Hours
-[░░░░░░░░░░░░░░░░░░░░] 0.05%
+Total: 6 Hours
+[░░░░░░░░░░░░░░░░░░░░] 0.06%
 ```
 <!-- glossy-waka-10k-hours-1772126289301-0.3408068907263003-end -->
 
@@ -88,7 +88,7 @@ Total: 4.6 Hours
 Master of TypeScript
 
 > ⚔️  [CLASS: TypeScript Artisan]
-> 🎯 REMAINING: 9,995.4 Hours to mastery
+> 🎯 REMAINING: 9,994 Hours to mastery
 > 📈 [┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈]
 ```
 <!-- glossy-waka-10k-hours-1772126295766-0.9482403292096852-end -->
@@ -98,8 +98,8 @@ Master of TypeScript
 Master of TypeScript
 
 guest@github:~$ wakatime --lang "TypeScript" 
-[                         ] 0.05%
-> 4.6 hours logged.
+[                         ] 0.06%
+> 6 hours logged.
 > Ongoing progress...
 ```
 <!-- glossy-waka-10k-hours-1772126301341-0.11673391667345445-end -->
@@ -109,7 +109,7 @@ guest@github:~$ wakatime --lang "TypeScript"
 Master of TypeScript
 
 LANGUAGE     REMAINING TIME      PROGRESS
-TypeScript      9,995.4 hrs   ░░░░░░░░░░ (0.05%)
+TypeScript        9,994 hrs   ░░░░░░░░░░ (0.06%)
 ```
 <!-- glossy-waka-10k-hours-1772126306387-0.4922088520581265-end -->
 
