@@ -1,3 +1,9 @@
+```text
+>_ SYSTEM: INITIALIZING AUTO-PROFILE SEQUENCE...
+>_ STATUS: GitHub Actions Pipeline in Active Testing 🔄
+>_ NOTICE: Live data fetching enabled. Expect frequent UI restructuring.
+```
+
 <!-- glossy-activity-graph-1772194697580-0.35369532756451516-start -->
 <a href="https://github.com/glossybigbro">
     <img src="https://github-readme-activity-graph.vercel.app/graph?username=glossybigbro&theme=vue&area=true&hide_border=true&hide_title=true&grid=true&days=31&radius=8" alt="glossybigbro's GitHub Activity Graph" width="100%" />
