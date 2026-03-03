@@ -1,5 +1,5 @@
 ```text
->_ SYSTEM: INITIALIZING AUTO-PROFILE SEQUENCE...
+>_ SYSTEM: INITIALIZING AUTO-PROFILE SEQUENCE.....
 >_ STATUS: GitHub Actions Pipeline in Active Testing 🔄
 >_ NOTICE: Live data fetching enabled. Expect frequent UI restructuring.
 ```
