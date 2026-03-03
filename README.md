@@ -35,8 +35,8 @@ JavaScript                          1 Repos             ░░░░░░░░
 ```text
 🐱💻 Weekly Projects
 
-glossybigbro                       18 contribs          🟢     75 %
-github-profile-generator            6 contribs          🟢     25 %
+glossybigbro                       18 contribs          🟢  78.26 %
+github-profile-generator            5 contribs          🟢  21.74 %
 ```
 <!-- glossy-weekly-projects-1772195263597-0.20874528774297918-end -->
 
@@ -44,8 +44,8 @@ github-profile-generator            6 contribs          🟢     25 %
 ```text
 🐱💻 Weekly Projects
 
-github-profile-generator            6 contribs          🟦🟦🟦⬜⬜⬜⬜⬜⬜⬜     25 %
-glossybigbro                       18 contribs          🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜     75 %
+github-profile-generator            5 contribs          🟦🟦⬜⬜⬜⬜⬜⬜⬜⬜  21.74 %
+glossybigbro                       18 contribs          🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜  78.26 %
 ```
 <!-- glossy-weekly-projects-1772195273722-0.15095337372216577-end -->
 
