@@ -15,9 +15,9 @@
 🦉 Night Owl
 
 🏙️ MORNING                          0 commits           □□□□□□□□□□□□□□□□□□□□□□□□□    00.00 %
-🏢 DAYTIME                          2 commits           ■■□□□□□□□□□□□□□□□□□□□□□□□    08.00 %
-🌉 EVENING                         10 commits           ■■■■■■■■■■□□□□□□□□□□□□□□□    40.00 %
-🌃 NIGHT                           13 commits           ■■■■■■■■■■■■■□□□□□□□□□□□□    52.00 %
+🏢 DAYTIME                          3 commits           ■■■□□□□□□□□□□□□□□□□□□□□□□    12.00 %
+🌉 EVENING                         10 commits           ■■■■■■■■■■□□□□□□□□□□□□□□□    38.00 %
+🌃 NIGHT                           13 commits           ■■■■■■■■■■■■■□□□□□□□□□□□□    50.00 %
 ```
 <!-- glossy-productive-time-1772195237800-0.5722430511922554-end -->
 
@@ -25,9 +25,10 @@
 ```text
 💬 Weekly Languages
 
-TypeScript                          2 Repos             █████████████████████░░░░  84.16 %
-CSS                                 1 Repos             ████░░░░░░░░░░░░░░░░░░░░░  15.71 %
-JavaScript                          1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.13 %
+TypeScript                          3 Repos             █████████████████████░░░░  82.68 %
+CSS                                 2 Repos             ████░░░░░░░░░░░░░░░░░░░░░  17.16 %
+JavaScript                          2 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.15 %
+HTML                                1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.01 %
 ```
 <!-- glossy-weekly-languages-1772195244181-0.6872593382683472-end -->
 
@@ -35,8 +36,9 @@ JavaScript                          1 Repos             ░░░░░░░░
 ```text
 🐱💻 Weekly Projects
 
-glossybigbro                       11 contribs          🟢  91.67 %
-github-profile-generator            1 contribs          🟢   8.33 %
+glossybigbro                        6 contribs          🟢     75 %
+glossybigbro.github.io              1 contribs          🟢   12.5 %
+github-profile-generator            1 contribs          🟢   12.5 %
 ```
 <!-- glossy-weekly-projects-1772195263597-0.20874528774297918-end -->
 
@@ -44,8 +46,9 @@ github-profile-generator            1 contribs          🟢   8.33 %
 ```text
 🐱💻 Weekly Projects
 
-github-profile-generator            1 contribs          🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜   8.33 %
-glossybigbro                       11 contribs          🟦🟦🟦🟦🟦🟦🟦🟦🟦⬜  91.67 %
+github-profile-generator            1 contribs          🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜   12.5 %
+glossybigbro                        6 contribs          🟦🟦🟦🟦🟦🟦🟦🟦⬜⬜     75 %
+glossybigbro.github.io              1 contribs          🟦⬜⬜⬜⬜⬜⬜⬜⬜⬜   12.5 %
 ```
 <!-- glossy-weekly-projects-1772195273722-0.15095337372216577-end -->
 
@@ -53,8 +56,9 @@ glossybigbro                       11 contribs          🟦🟦🟦🟦🟦🟦
 ```text
 💬 Weekly Languages
 
-TypeScript                          2 Repos             🔵  84.16 %
-JavaScript                          1 Repos             🔵   0.13 %
+TypeScript                          3 Repos             🔵  82.68 %
+JavaScript                          2 Repos             🔵   0.15 %
+HTML                                1 Repos             🔵   0.01 %
 ```
 <!-- glossy-weekly-languages-1772195286484-0.5431842290751545-end -->
 
