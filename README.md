@@ -25,10 +25,10 @@
 ```text
 💬 Weekly Languages
 
-TypeScript                          3 Repos             ████████████████████░░░░░  81.72 %
-CSS                                 2 Repos             ████░░░░░░░░░░░░░░░░░░░░░  17.77 %
-JavaScript                          2 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░    0.5 %
-HTML                                1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.02 %
+TypeScript                          3 Repos             ██████████████████████░░░  89.68 %
+CSS                                 2 Repos             ███░░░░░░░░░░░░░░░░░░░░░░  10.04 %
+JavaScript                          2 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.27 %
+HTML                                1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.01 %
 ```
 <!-- glossy-weekly-languages-1772195244181-0.6872593382683472-end -->
 
@@ -52,9 +52,9 @@ glossybigbro.github.io              1 contribs          🟦🟦🟦🟦🟦🟦
 ```text
 💬 Weekly Languages
 
-TypeScript                          3 Repos             🔵  81.72 %
-JavaScript                          2 Repos             🔵    0.5 %
-HTML                                1 Repos             🔵   0.02 %
+TypeScript                          3 Repos             🔵  89.68 %
+JavaScript                          2 Repos             🔵   0.27 %
+HTML                                1 Repos             🔵   0.01 %
 ```
 <!-- glossy-weekly-languages-1772195286484-0.5431842290751545-end -->
 
@@ -68,8 +68,8 @@ HTML                                1 Repos             🔵   0.02 %
 ```text
 Master of TypeScript
 
-Total: 13.4 Hours
-[░░░░░░░░░░░░░░░░░░░░] 0.13%
+Total: 16.7 Hours
+[░░░░░░░░░░░░░░░░░░░░] 0.17%
 ```
 <!-- glossy-waka-10k-hours-1772197142414-0.612088502928488-end -->
 
@@ -78,7 +78,7 @@ Total: 13.4 Hours
 K of TypeScript
 
 > ⚔️ [CLASS: TypeScript Artisan]
-> 🎯 REMAINING: 9,986.6 Hours to mastery
+> 🎯 REMAINING: 9,983.3 Hours to mastery
 > 📈 [┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈]
 ```
 <!-- glossy-waka-10k-hours-1772197147108-0.4121739350405641-end -->
@@ -88,8 +88,8 @@ K of TypeScript
 Q of TypeScript
 
 guest@github:~$ wakatime --lang "TypeScript" 
-[                         ] 0.13%
-> 13.4 hours logged.
+[                         ] 0.17%
+> 16.7 hours logged.
 > Ongoing progress...
 ```
 <!-- glossy-waka-10k-hours-1772197160036-0.9504997045496816-end -->
@@ -99,7 +99,7 @@ guest@github:~$ wakatime --lang "TypeScript"
 M of TypeScript
 
 LANGUAGE         REMAINING TIME   PROGRESS
-TypeScript          9,986.6 hrs   ░░░░░░░░░░ (0.13%)
+TypeScript          9,983.3 hrs   ░░░░░░░░░░ (0.17%)
 ```
 <!-- glossy-waka-10k-hours-1772197167350-0.6746917400991023-end -->
 
