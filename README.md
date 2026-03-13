@@ -25,10 +25,9 @@
 ```text
 💬 Weekly Languages
 
-TypeScript                          3 Repos             ██████████████████████░░░  89.68 %
-CSS                                 2 Repos             ███░░░░░░░░░░░░░░░░░░░░░░  10.04 %
-JavaScript                          2 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.27 %
-HTML                                1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.01 %
+TypeScript                          2 Repos             ████████████████████████░  97.59 %
+CSS                                 1 Repos             █░░░░░░░░░░░░░░░░░░░░░░░░    2.1 %
+JavaScript                          1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.31 %
 ```
 <!-- glossy-weekly-languages-1772195244181-0.6872593382683472-end -->
 
@@ -36,7 +35,13 @@ HTML                                1 Repos             ░░░░░░░░
 ```text
 🐱💻 Weekly Projects
 
-glossybigbro.github.io              1 contribs          🟢    100 %
+     .-.
+   (o o) boo!
+   | O \\
+    \\   \\
+     '~~~'
+  Invisible on the radar! 👻
+  (Or maybe just working in private repos...)
 ```
 <!-- glossy-weekly-projects-1772195263597-0.20874528774297918-end -->
 
@@ -44,7 +49,13 @@ glossybigbro.github.io              1 contribs          🟢    100 %
 ```text
 🐱💻 Weekly Projects
 
-glossybigbro.github.io              1 contribs          🟦🟦🟦🟦🟦🟦🟦🟦🟦🟦    100 %
+     .-.
+   (o o) boo!
+   | O \\
+    \\   \\
+     '~~~'
+  Invisible on the radar! 👻
+  (Or maybe just working in private repos...)
 ```
 <!-- glossy-weekly-projects-1772195273722-0.15095337372216577-end -->
 
@@ -52,9 +63,8 @@ glossybigbro.github.io              1 contribs          🟦🟦🟦🟦🟦🟦
 ```text
 💬 Weekly Languages
 
-TypeScript                          3 Repos             🔵  89.68 %
-JavaScript                          2 Repos             🔵   0.27 %
-HTML                                1 Repos             🔵   0.01 %
+TypeScript                          2 Repos             🔵  97.59 %
+JavaScript                          1 Repos             🔵   0.31 %
 ```
 <!-- glossy-weekly-languages-1772195286484-0.5431842290751545-end -->
 
@@ -68,8 +78,8 @@ HTML                                1 Repos             🔵   0.01 %
 ```text
 Master of TypeScript
 
-Total: 16.7 Hours
-[░░░░░░░░░░░░░░░░░░░░] 0.17%
+Total: 21.1 Hours
+[░░░░░░░░░░░░░░░░░░░░] 0.21%
 ```
 <!-- glossy-waka-10k-hours-1772197142414-0.612088502928488-end -->
 
@@ -78,7 +88,7 @@ Total: 16.7 Hours
 K of TypeScript
 
 > ⚔️ [CLASS: TypeScript Artisan]
-> 🎯 REMAINING: 9,983.3 Hours to mastery
+> 🎯 REMAINING: 9,978.9 Hours to mastery
 > 📈 [┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈]
 ```
 <!-- glossy-waka-10k-hours-1772197147108-0.4121739350405641-end -->
@@ -88,8 +98,8 @@ K of TypeScript
 Q of TypeScript
 
 guest@github:~$ wakatime --lang "TypeScript" 
-[                         ] 0.17%
-> 16.7 hours logged.
+[                         ] 0.21%
+> 21.1 hours logged.
 > Ongoing progress...
 ```
 <!-- glossy-waka-10k-hours-1772197160036-0.9504997045496816-end -->
@@ -99,7 +109,7 @@ guest@github:~$ wakatime --lang "TypeScript"
 M of TypeScript
 
 LANGUAGE         REMAINING TIME   PROGRESS
-TypeScript          9,983.3 hrs   ░░░░░░░░░░ (0.17%)
+TypeScript          9,978.9 hrs   ░░░░░░░░░░ (0.21%)
 ```
 <!-- glossy-waka-10k-hours-1772197167350-0.6746917400991023-end -->
 
