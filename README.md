@@ -25,9 +25,7 @@
 ```text
 💬 Weekly Languages
 
-TypeScript                          2 Repos             ████████████████████████░  97.59 %
-CSS                                 1 Repos             █░░░░░░░░░░░░░░░░░░░░░░░░    2.1 %
-JavaScript                          1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   0.31 %
+TypeScript                          1 Repos             █████████████████████████    100 %
 ```
 <!-- glossy-weekly-languages-1772195244181-0.6872593382683472-end -->
 
@@ -63,8 +61,7 @@ JavaScript                          1 Repos             ░░░░░░░░
 ```text
 💬 Weekly Languages
 
-TypeScript                          2 Repos             🔵  97.59 %
-JavaScript                          1 Repos             🔵   0.31 %
+TypeScript                          1 Repos             🔵    100 %
 ```
 <!-- glossy-weekly-languages-1772195286484-0.5431842290751545-end -->
 
