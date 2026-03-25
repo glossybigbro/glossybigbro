@@ -25,7 +25,9 @@
 ```text
 💬 Weekly Languages
 
-TypeScript                          1 Repos             █████████████████████████    100 %
+TypeScript                          2 Repos             ██████████████████████░░░  87.72 %
+JavaScript                          1 Repos             ███░░░░░░░░░░░░░░░░░░░░░░  10.58 %
+CSS                                 1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░    1.7 %
 ```
 <!-- glossy-weekly-languages-1772195244181-0.6872593382683472-end -->
 
@@ -61,7 +63,8 @@ TypeScript                          1 Repos             ████████
 ```text
 💬 Weekly Languages
 
-TypeScript                          1 Repos             🔵    100 %
+TypeScript                          2 Repos             🔵  87.72 %
+JavaScript                          1 Repos             🔵  10.58 %
 ```
 <!-- glossy-weekly-languages-1772195286484-0.5431842290751545-end -->
 
@@ -75,8 +78,8 @@ TypeScript                          1 Repos             🔵    100 %
 ```text
 Master of TypeScript
 
-Total: 24.3 Hours
-[░░░░░░░░░░░░░░░░░░░░] 0.24%
+Total: 25.7 Hours
+[░░░░░░░░░░░░░░░░░░░░] 0.26%
 ```
 <!-- glossy-waka-10k-hours-1772197142414-0.612088502928488-end -->
 
@@ -85,7 +88,7 @@ Total: 24.3 Hours
 K of TypeScript
 
 > ⚔️ [CLASS: TypeScript Artisan]
-> 🎯 REMAINING: 9,975.7 Hours to mastery
+> 🎯 REMAINING: 9,974.3 Hours to mastery
 > 📈 [┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈]
 ```
 <!-- glossy-waka-10k-hours-1772197147108-0.4121739350405641-end -->
@@ -95,8 +98,8 @@ K of TypeScript
 Q of TypeScript
 
 guest@github:~$ wakatime --lang "TypeScript" 
-[                         ] 0.24%
-> 24.3 hours logged.
+[                         ] 0.26%
+> 25.7 hours logged.
 > Ongoing progress...
 ```
 <!-- glossy-waka-10k-hours-1772197160036-0.9504997045496816-end -->
@@ -106,7 +109,7 @@ guest@github:~$ wakatime --lang "TypeScript"
 M of TypeScript
 
 LANGUAGE         REMAINING TIME   PROGRESS
-TypeScript          9,975.7 hrs   ░░░░░░░░░░ (0.24%)
+TypeScript          9,974.3 hrs   ░░░░░░░░░░ (0.26%)
 ```
 <!-- glossy-waka-10k-hours-1772197167350-0.6746917400991023-end -->
 
