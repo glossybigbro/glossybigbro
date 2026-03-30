@@ -12,12 +12,13 @@
 
 <!-- glossy-productive-time-1772195237800-0.5722430511922554-start -->
 ```text
-🦉 Night Owl
-
-🏙️ MORNING                          0 commits           □□□□□□□□□□□□□□□□□□□□□□□□□    00.00 %
-🏢 DAYTIME                          1 commits           ■■□□□□□□□□□□□□□□□□□□□□□□□    08.00 %
-🌉 EVENING                          5 commits           ■■■■■■■■■■□□□□□□□□□□□□□□□    38.00 %
-🌃 NIGHT                            7 commits           ■■■■■■■■■■■■■■□□□□□□□□□□□    54.00 %
+        [zzz]
+       ( -_-)
+      /|    |\\
+     / |    | \\
+    ￣￣￣￣￣￣￣
+  Currently taking a coffee break ☕
+  (No public activity found... yet!)
 ```
 <!-- glossy-productive-time-1772195237800-0.5722430511922554-end -->
 
@@ -25,9 +26,10 @@
 ```text
 💬 Weekly Languages
 
-TypeScript                          2 Repos             ██████████████████████░░░  89.79 %
-JavaScript                          1 Repos             ██░░░░░░░░░░░░░░░░░░░░░░░   8.83 %
-CSS                                 1 Repos             ░░░░░░░░░░░░░░░░░░░░░░░░░   1.39 %
+   ╭────────────────────────────╮
+   │   NO ACTIVITY DETECTED     │
+   │   Waiting for daily code.  │
+   ╰────────────────────────────╯
 ```
 <!-- glossy-weekly-languages-1772195244181-0.6872593382683472-end -->
 
@@ -63,8 +65,10 @@ CSS                                 1 Repos             ░░░░░░░░
 ```text
 💬 Weekly Languages
 
-TypeScript                          2 Repos             🔵  89.79 %
-JavaScript                          1 Repos             🔵   8.83 %
+   ╭────────────────────────────╮
+   │   NO ACTIVITY DETECTED     │
+   │   Waiting for daily code.  │
+   ╰────────────────────────────╯
 ```
 <!-- glossy-weekly-languages-1772195286484-0.5431842290751545-end -->
 
