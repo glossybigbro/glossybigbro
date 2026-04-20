@@ -82,9 +82,8 @@
 ```text
 Master of TypeScript
 
-TypeScript Proficiency
-[ SYSTEM STATUS ]
-> WakaTime is currently calculating your all-time stats for the first time. Please check back in a few minutes.
+Total: 31.9 Hours
+[░░░░░░░░░░░░░░░░░░░░] 0.32%
 ```
 <!-- glossy-waka-10k-hours-1772197142414-0.612088502928488-end -->
 
@@ -93,8 +92,8 @@ TypeScript Proficiency
 K of TypeScript
 
 > ⚔️ [CLASS: TypeScript Artisan]
-> ⏳ SYSTEM ALERTS:
->    WakaTime is currently calculating your all-time stats for the first time. Please check back in a few minutes.
+> 🎯 REMAINING: 9,968.1 Hours to mastery
+> 📈 [┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈]
 ```
 <!-- glossy-waka-10k-hours-1772197147108-0.4121739350405641-end -->
 
@@ -103,7 +102,9 @@ K of TypeScript
 Q of TypeScript
 
 guest@github:~$ wakatime --lang "TypeScript" 
-> WARN: WakaTime is currently calculating your all-time stats for the first time. Please check back in a few minutes.
+[                         ] 0.32%
+> 31.9 hours logged.
+> Ongoing progress...
 ```
 <!-- glossy-waka-10k-hours-1772197160036-0.9504997045496816-end -->
 
@@ -111,8 +112,8 @@ guest@github:~$ wakatime --lang "TypeScript"
 ```text
 M of TypeScript
 
-LANGUAGE     LOGGED TIME         PROGRESS
-TypeScript   [ WakaTime is currently calculating your all-time stats for the first time. Please check back in a few minutes. ]
+LANGUAGE         REMAINING TIME   PROGRESS
+TypeScript          9,968.1 hrs   ░░░░░░░░░░ (0.32%)
 ```
 <!-- glossy-waka-10k-hours-1772197167350-0.6746917400991023-end -->
 
